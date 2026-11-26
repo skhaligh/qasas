@@ -22,6 +22,17 @@ READY = {
     31: (None, "sab3", 0), 33: (None, "zkr1", 0), 53: (None, "mdn2", 0), 62: (None, "sjd1", 0), 64: (None, "shtr1", 0),
     74: (None, "bzr2", 0), 79: (None, "grd1", 0), 80: (None, "hal2", 0), 85: (None, "gul1", 0), 93: (None, "krv1", 0),
     94: (None, "sjd1", 0),
+    # batch 4 (Farsi and English)
+    5: ("Prophet Hud and the Wind", "aad2", 0), 6: ("Prophet Salih’s She-Camel", "slh2", 0),
+    10: ("Prophet Ibrahim and the Four Birds", "prn4", 0), 11: ("Prophet Ibrahim’s Guests", "mhm1", 0),
+    12: ("The Spring of Zamzam", "zmz2", 0), 19: ("Prophet Ayyub the Patient", "ayb3", 0),
+    20: ("Prophet Shuʿayb and the Scales", "shb3", 0), 26: ("Prophet Musa and the Wise Servant", "khz2", 0),
+    27: ("Prophet Dawud and Jalut", "jlt3", 0), 35: ("Prophet ʿIsa in the Cradle", "isa2", 0),
+    40: ("The People of the Elephant", "fil1", 0), 42: ("Muhammad the Trustworthy and the Black Stone", "hjr2", 0),
+    44: ("Mount Hira", "hra3", 0), 51: ("The Night of the Hijra", "mbt2", 0),
+    57: ("The Trunk That Wept", "hnn2", 0), 66: ("Born in the Kaʿba", "mld1", 0),
+    69: ("Ghadir Khumm", "ghd2", 0), 71: ("The Fellow Traveller on the Road to Kufa", "hms2", 0),
+    99: ("The Farm of the Man with the Sharp Tongue", "mzr1", 0), 110: ("The Advice of Luqman the Wise", "lqm1", 0),
 }
 rows, group = [], None
 for line in open(os.path.join(root, "story-list.md"), encoding="utf-8"):

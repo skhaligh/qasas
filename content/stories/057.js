@@ -1,0 +1,157 @@
+export default {
+  id: 57,
+  title: { fa: 'ستون حنّانه', en: 'The Trunk That Wept' },
+  cover: 'hnn2',
+  prep: {
+    fa: {
+      gist: 'پیامبر (ص) در مسجد، هنگام سخن گفتن به تنهٔ خشکِ یک درخت خرما تکیه می‌دهد. وقتی برایش منبر می‌سازند و او بالای منبر می‌رود، آن تنهٔ درخت از دوری‌اش ناله می‌کند. پیامبر پایین می‌آید و آن را در آغوش می‌گیرد تا آرام شود.',
+      words: [['منبر', 'جای بلندِ پله‌دار که سخنران رویش می‌ایستد'], ['تنهٔ نخل', 'چوبِ بلندِ درخت خرما'], ['حنّانه', 'ناله‌کننده از دلتنگی'], ['دلتنگی', 'وقتی دلت برای کسی تنگ می‌شود']],
+      care: 'این ماجرا در کتاب‌های شیعه بدون سندِ کامل آمده است؛ برای همین با «نقل شده است» می‌خوانیم. در کتاب‌های اهل‌سنت با سند آمده است.',
+    },
+    en: {
+      gist: 'In the mosque the Prophet leans on the dry trunk of a palm tree when he speaks. When a pulpit is made for him and he goes up onto it, the trunk moans at being parted from him. The Prophet comes down and holds it in his arms until it is calm.',
+      words: [['pulpit (minbar)', 'a raised place with steps where a speaker stands'], ['palm trunk', 'the tall wooden stem of a date palm'], ['Hannana', 'the one that moans with longing'], ['longing', 'when your heart misses someone']],
+      care: 'In Shia books this account comes without a full chain; so we read it with “it is reported”. In Sunni books it is reported with chains.',
+    },
+  },
+  roots: {
+    strength: {
+      fa: 'این ماجرا در کتاب‌های شیعه آمده، اما بدون سندی که به امام برسد: «الخرائج» راوندی، «مناقب» ابن‌شهرآشوب (که امام سجاد ع را هم میان راویان نام می‌بَرَد)، «اعلام‌الوری» طبرسی، و تفسیری که به امام عسکری (ع) نسبت داده‌اند. در کتاب‌های اهل‌سنت با سندهای معتبرِ خودشان آمده است (صحیح بخاری، از جابر بن عبدالله).',
+      en: 'This account is found in Shia books, but without a chain reaching an Imam: al-Rawandi’s al-Kharaʾij, Ibn Shahrashub’s Manaqib (which names Imam Sajjad among its narrators), al-Tabrisi’s Iʿlam al-Wara, and the commentary attributed to Imam ʿAskari. In Sunni books it comes with chains they hold sound (Sahih al-Bukhari, from Jabir b. ʿAbdullah).',
+    },
+    list: [
+      { id: 'r1', ref: { fa: 'الخرائج و الجرائح (راوندی) ۱/۱۶۵، ش ۲۵۵ · اعلام‌الوری ۱/۷۶', en: 'al-Rawandi, al-Kharaʾij wa’l-Jaraʾih 1/165, no. 255 · Iʿlam al-Wara 1/76' },
+        ar: 'أَنَّ نَبِيَّ اللَّهِ ص لَمَّا بَنَى مَسْجِدَهُ كَانَ فِيهِ جِذْعُ نَخْلٍ إِلَى جَانِبِ الْمِحْرَابِ يَابِسٌ عَتِيقٌ إِذَا خَطَبَ يَسْتَنِدُ إِلَيْهِ فَلَمَّا اتُّخِذَ لَهُ الْمِنْبَرُ وَ صَعِدَهُ حَنَّ ذَلِكَ الْجِذْعُ كَحَنِينِ النَّاقَةِ إِلَى فَصِيلِهَا فَنَزَلَ رَسُولُ اللَّهِ ص فَاحْتَضَنَهُ فَسَكَنَ مِنَ الْحَنِينِ ثُمَّ رَجَعَ رَسُولُ اللَّهِ ص وَ يُسَمَّى الحَنَّانَةَ. … فنزل رسول اللّه صلّى اللّه عليه و آله و سلّم فضمّه إليه، فكان يئنّ أنين الصبيّ الذي يسكت‌',
+        gloss: { fa: 'وقتی پیامبر خدا (ص) مسجدش را ساخت، در آن، کنار محراب، تنهٔ نخلی خشک و کهنه بود که هنگام سخنرانی به آن تکیه می‌داد. چون برایش منبر ساختند و بالای آن رفت، آن تنهٔ نخل ناله کرد؛ مثل نالهٔ شتر برای بچه‌اش. پیامبر خدا (ص) پایین آمد و آن را در آغوش گرفت، و ناله‌اش آرام شد. سپس پیامبر (ص) برگشت؛ و آن را «حنّانه» می‌نامند.… [اعلام‌الوری:] پیامبر خدا (ص) پایین آمد و آن را به خود چسباند؛ و آن مثل کودکی که آرامش می‌کنند، هق‌هق می‌کرد.',
+          en: 'When the Prophet of God built his mosque, there was in it, beside the prayer-niche, an old dry palm trunk on which he would lean when he preached. When a pulpit was made for him and he went up onto it, that trunk moaned, as a she-camel moans for her young. The Messenger of God came down and embraced it, and its moaning grew still. Then the Messenger of God went back; and it is called “al-Hannana”.… [Iʿlam al-Wara:] The Messenger of God came down and held it to himself; and it sobbed like a child being hushed.' } },
+      { id: 'r2', ref: { fa: 'تفسیر منسوب به امام عسکری (ع) ص ۱۸۸ · بحارالانوار ۱۷/۳۲۶', en: 'Commentary attributed to Imam ʿAskari p. 188 · Bihar al-Anwar 17/326' },
+        ar: 'فقال له بعض أصحابه : يا رسول الله إن الناس قد كثروا، وأنهم يحبون النظر إليك إذا خطبت. فلو أذنت أن نعمل لك منبرا له مراق ترقاها فيراك الناس إذا خطبت. فأذن في ذلك. فلما كان يوم الجمعة مر بالجذع، فتجاوزه إلى المنبر فصعده … نزل عن المنبر، وأتى الجذع فاحتضنه ومسح عليه يده، وقال: أسكن فما تجاوزك رسول الله صلى الله عليه وآله تهاونا بك، ولا استخفافا بحرمتك ولكن ليتم لعباد الله مصلحتهم، ولك جلالك وفضلك إذ كنت مستند محمد رسول الله. … ثم قال: معاشر المسلمين هذا الجذع يحن إلى رسول رب العالمين، ويحزن لبعده عنه … لولا أني ما احتضنت هذا الجذع، ومسحت يدي عليه ما هدأ حنينه إلى يوم القيامة.',
+        gloss: { fa: 'یکی از یارانش گفت: «ای پیامبر خدا! مردم زیاد شده‌اند و دوست دارند هنگام سخنرانی شما را ببینند. کاش اجازه می‌دادید منبری با چند پله برایتان بسازیم تا بالای آن بروید و مردم شما را ببینند.» اجازه داد. روز جمعه که شد، از کنار آن تنهٔ نخل گذشت و به سوی منبر رفت و بالای آن رفت… [پس از ناله] از منبر پایین آمد، نزد آن تنه رفت، آن را در آغوش گرفت و دست بر آن کشید و فرمود: «آرام باش. پیامبر خدا از سرِ بی‌اعتنایی یا کوچک شمردنِ تو از کنارت نگذشت؛ بلکه برای اینکه کارِ بندگان خدا درست شود. بزرگی و برتریِ تو سرِ جایش است؛ چون تکیه‌گاهِ محمد، پیامبر خدا، بوده‌ای.»… سپس فرمود: «ای مسلمانان! این تنهٔ درخت دلتنگِ پیامبرِ پروردگارِ جهانیان است و از دوری‌اش غمگین می‌شود… اگر آن را در آغوش نگرفته و دست بر آن نکشیده بودم، ناله‌اش تا روز قیامت آرام نمی‌گرفت.»',
+          en: 'One of his companions said: “Messenger of God, the people have become many, and they love to look at you when you preach. If only you would allow us to make you a pulpit with steps for you to climb, so that people can see you when you preach.” He allowed it. When Friday came he passed the trunk and went on to the pulpit and climbed it… [after it moaned] he came down from the pulpit, went to the trunk, embraced it and passed his hand over it, and said: “Be calm. The Messenger of God did not pass you by out of neglect, or thinking little of your honour; but so that what is good for God’s servants might be complete. Your dignity and your merit remain; for you were what Muhammad, the Messenger of God, leaned on.”… Then he said: “Muslims, this trunk longs for the Messenger of the Lord of the worlds, and grieves at being far from him… Had I not embraced this trunk and passed my hand over it, its longing would not have grown still until the Day of Resurrection.”' } },
+      { id: 'r3', ref: { fa: 'صحیح بخاری، کتاب المناقب، ح ۳۵۸۴ (از جابر بن عبدالله)', en: 'Sahih al-Bukhari, Book of Merits, no. 3584 (from Jabir b. ʿAbdullah)' },
+        ar: 'فَلَمَّا كَانَ يَوْمَ الجُمُعَةِ دُفِعَ إِلَى المِنْبَرِ، فَصَاحَتِ النَّخْلَةُ صِيَاحَ الصَّبِيِّ، ثُمَّ نَزَلَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ فَضَمَّهُ إِلَيْهِ، تَئِنُّ أَنِينَ الصَّبِيِّ الَّذِي يُسَكَّنُ. قَالَ: «كَانَتْ تَبْكِي عَلَى مَا كَانَتْ تَسْمَعُ مِنَ الذِّكْرِ عِنْدَهَا»',
+        gloss: { fa: 'روز جمعه که شد، به سوی منبر رفت. آن نخل مثل کودک فریاد زد. پیامبر (ص) پایین آمد و آن را به خود چسباند؛ و آن مثل کودکی که آرامش می‌کنند، هق‌هق می‌کرد. فرمود: «برای یادِ خدا که کنارش می‌شنید گریه می‌کرد.»',
+          en: 'When Friday came he went to the pulpit. The palm cried out like a child. Then the Prophet came down and held it to himself; and it sobbed like a child being hushed. He said: “It was weeping for the remembrance of God that it used to hear beside it.”' } },
+    ],
+    ours: { fa: 'صدای ناله را هر کتاب به چیزی تشبیه کرده است: شتری که بچه‌اش را گم کرده، مادرِ داغ‌دیده، یا کودک. ما «مثل کودکی که دلش تنگ شده» را برگزیده‌ایم، که در کتاب‌های هر دو گروه هست. «مردمِ ردیفِ آخر او را نمی‌دیدند» توضیحِ قصه‌گو برای سخنِ آن صحابی است.', en: 'Each book compares the sound to something different: a camel that has lost her young, a bereaved mother, or a child. We chose “like a child who misses someone”, which is found in the books of both groups. “The people at the back could not see him” is the storyteller’s way of explaining the companion’s request.' },
+    left: { fa: 'هیچ متنی نمی‌گوید آن تنهٔ درخت «حرف زد»؛ فقط ناله کرد. دربارهٔ اینکه بعدها چه بر سرِ آن آمد سه نقلِ ناسازگار هست (سرِ جایش ماند تا مسجد را از نو ساختند؛ زیرِ منبر دفن شد؛ یکی از یاران آن را به خانه برد). علامه مجلسی هم به این ناسازگاری اشاره کرده است؛ برای همین چیزی نگفته‌ایم. نام نجّار و نام کسی که پیشنهادِ منبر داد در متن‌های شیعه نیست.', en: 'No text says the trunk “spoke”; it only moaned. There are three conflicting reports about what became of it later (it stayed in place until the mosque was rebuilt; it was buried under the pulpit; a companion took it home). Al-Majlisi notes the conflict too; so we say nothing. The name of the carpenter and of the person who proposed the pulpit are not in the Shia texts.' },
+  },
+  full: [
+    { art: 'hnn1', amb: 'morning', refs: ['r1'],
+      fa: [
+        `یادت هست پیامبر (ص) و یارانش مسجدِ مدینه را با دست‌های خودشان ساختند؟ ستون‌هایش تنهٔ درخت خرما بود.`,
+        `نقل شده است که نزدیک محراب، یک تنهٔ نخلِ کهنه و خشک بود.`,
+        `پیامبر (ص) هر وقت می‌خواست با مردم حرف بزند، کنارِ آن می‌ایستاد و به آن تکیه می‌داد.`,
+        `آن تکه چوبِ خشک، هر روز از همه به پیامبر (ص) نزدیک‌تر بود.`,
+      ],
+      en: [
+        `Do you remember how the Prophet and his companions built the mosque of Madina with their own hands? Its pillars were the trunks of date palms.`,
+        `It is reported that near the prayer-niche there was an old, dry palm trunk.`,
+        `Whenever the Prophet wanted to speak to the people, he would stand beside it and lean on it.`,
+        `That piece of dry wood was, every day, closer to the Prophet than anyone.`,
+      ] },
+    { art: 'hnn1', amb: 'morning', refs: ['r2'],
+      fa: [
+        `کم‌کم مسلمانان زیاد شدند. مسجد پر می‌شد، و آن‌ها که عقب نشسته بودند پیامبر (ص) را نمی‌دیدند.`,
+        `یکی از یاران گفت: {{ای پیامبر خدا! مردم زیاد شده‌اند و دوست دارند شما را ببینند. اجازه می‌دهید منبری با چند پله برایتان بسازیم؟}}`,
+        `پیامبر (ص) اجازه داد. منبری چوبی ساختند. [[hammer]]`,
+      ],
+      en: [
+        `Little by little the Muslims grew in number. The mosque would fill up, and those sitting at the back could not see the Prophet.`,
+        `One of the companions said: {{Messenger of God! The people have become many, and they love to see you. Will you allow us to make you a pulpit with a few steps?}}`,
+        `The Prophet allowed it. They made a wooden pulpit. [[hammer]]`,
+      ] },
+    { art: 'hnn2', amb: 'wind', refs: ['r1', 'r2'],
+      fa: [
+        `روز جمعه رسید. پیامبر (ص) وارد مسجد شد. از کنارِ آن تنهٔ نخل گذشت… و از پله‌های منبر بالا رفت. [[steps]]`,
+        `ناگهان صدایی در مسجد پیچید. ((مکث))`,
+        `صدای ناله بود. مثل گریهٔ بچه‌ای که دلش برای مادرش تنگ شده.`,
+        `همه نگاه کردند. صدا از آن تنهٔ خشکِ نخل می‌آمد!`,
+      ],
+      en: [
+        `Friday came. The Prophet entered the mosque. He walked past that palm trunk… and went up the steps of the pulpit. [[steps]]`,
+        `Suddenly a sound filled the mosque. ((pause))`,
+        `It was a moaning sound. Like the crying of a child who misses his mother.`,
+        `Everyone looked. The sound was coming from that dry palm trunk!`,
+      ] },
+    { art: 'hnn2', amb: 'morning', refs: ['r1', 'r2', 'r3'],
+      fa: [
+        `پیامبر (ص) از منبر پایین آمد. به طرفِ تنهٔ نخل رفت و آن را در آغوش گرفت، و دستِ مهربانش را روی آن کشید. ((بچه را در آغوش بگیرید))`,
+        `ناله کم شد… و کم‌تر… مثل هق‌هقِ کودکی که دارند آرامش می‌کنند.`,
+        `نقل شده است که به آن فرمود: {{آرام باش. من از سرِ بی‌اعتنایی از کنارت نگذشتم. احترامِ تو سرِ جایش است؛ تو تکیه‌گاهِ پیامبرِ خدا بوده‌ای.}}`,
+      ],
+      en: [
+        `The Prophet came down from the pulpit. He went to the palm trunk and took it in his arms, and passed his kind hand over it. ((hug the child))`,
+        `The moaning grew softer… and softer… like the sobbing of a child who is being comforted.`,
+        `It is reported that he said to it: {{Be calm. I did not pass you by because I think little of you. Your honour is as it was; you were what the Messenger of God leaned on.}}`,
+      ] },
+    { art: 'hnn2', amb: 'morning', refs: ['r2'],
+      fa: [
+        `بعد رو به مردم کرد و فرمود: {{این تنهٔ درخت دلش برای پیامبرِ خدا تنگ می‌شود و از دوری‌اش غمگین است.}}`,
+        `{{اگر آن را در آغوش نگرفته بودم، تا روز قیامت همین‌طور ناله می‌کرد.}}`,
+        `از آن روز، مردم به آن «حَنّانه» می‌گفتند؛ یعنی ناله‌کننده از دلتنگی.`,
+        `یک تکه چوبِ خشک، آن‌قدر پیامبر (ص) را دوست داشت. ((بپرسید: ما چقدر دلمان برای او تنگ می‌شود؟))`,
+      ],
+      en: [
+        `Then he turned to the people and said: {{This trunk misses the Messenger of God, and is sad at being far from him.}}`,
+        `{{If I had not taken it in my arms, it would have gone on moaning like that until the Day of Resurrection.}}`,
+        `From that day people called it “Hannana”; the one that moans with longing.`,
+        `A piece of dry wood loved the Prophet that much. ((ask: how much do we miss him?))`,
+      ] },
+  ],
+  short: [
+    { art: 'hnn1', amb: 'morning', refs: ['r1'],
+      fa: [
+        `در مسجدِ پیامبر (ص) یک تنهٔ خشکِ درخت خرما بود.`,
+        `پیامبر (ص) هر وقت با مردم حرف می‌زد، به آن تکیه می‌داد.`,
+      ],
+      en: [
+        `In the Prophet’s mosque there was a dry palm trunk.`,
+        `Whenever the Prophet spoke to the people, he leaned on it.`,
+      ] },
+    { art: 'hnn2', amb: 'wind', refs: ['r1'],
+      fa: [
+        `یک روز برای پیامبر منبر ساختند. [[hammer]] او از کنارِ تنهٔ درخت گذشت و بالای منبر رفت.`,
+        `ناگهان تنهٔ درخت ناله کرد! مثل بچه‌ای که دلش تنگ شده.`,
+      ],
+      en: [
+        `One day they made a pulpit for the Prophet. [[hammer]] He walked past the trunk and went up onto the pulpit.`,
+        `Suddenly the trunk moaned! Like a child who misses someone.`,
+      ] },
+    { art: 'hnn2', amb: 'morning', refs: ['r1'],
+      fa: [
+        `پیامبر (ص) پایین آمد و آن را بغل کرد. ((بچه را بغل کنید))`,
+        `تنهٔ درخت آرام شد. حتی یک تکه چوب هم پیامبر (ص) را دوست داشت.`,
+      ],
+      en: [
+        `The Prophet came down and hugged it. ((hug the child))`,
+        `The trunk grew calm. Even a piece of wood loved the Prophet.`,
+      ] },
+  ],
+  more: {
+    fa: [
+      `## چرا ناله کرد؟`,
+      `در نقلِ جابر، یارِ پیامبر (ص)، آمده که فرمود: {{برای یادِ خدا که کنارش می‌شنید گریه می‌کرد.}} آن چوب هر روز سخنِ پیامبر (ص) را از نزدیک می‌شنید، و حالا از آن دور شده بود.`,
+      `## درسی برای آدم‌ها`,
+      `در همان نقل آمده که پیامبر (ص) فرمود: این چوب از دوریِ پیامبر غمگین می‌شود، اما بعضی آدم‌ها برایشان فرقی ندارد که به او نزدیک باشند یا دور!`,
+      `## باغی از بهشت`,
+      `پیامبر (ص) فرموده است: {{میانِ خانه‌ام و منبرم باغی از باغ‌های بهشت است.}} (کافی ۴/۵۵۴، سند حَسَن) کسانی که به مدینه می‌روند، آنجا نماز می‌خوانند.`,
+      `فکر کن: پیامبر (ص) وسطِ سخنرانی، جلوی همه، پایین آمد تا یک تکه چوب را آرام کند. این دربارهٔ او چه می‌گوید؟ اگر او با یک چوب این‌طور بود، با آدم‌ها چطور بود؟`,
+    ],
+    en: [
+      `## Why did it moan?`,
+      `In the report of Jabir, the Prophet’s companion, he said: {{It was weeping for the remembrance of God that it used to hear beside it.}} Every day that wood had heard the Prophet’s words from close by, and now it was far from them.`,
+      `## A lesson for people`,
+      `The same account says the Prophet remarked: this piece of wood grieves at being far from the Prophet, yet to some people it makes no difference whether they are near him or far!`,
+      `## A garden of Paradise`,
+      `The Prophet said: {{Between my house and my pulpit is one of the gardens of Paradise.}} (al-Kafi 4/554, good chain) Those who go to Madina pray there.`,
+      `Think: in the middle of his sermon, in front of everyone, the Prophet came down to comfort a piece of wood. What does that tell us about him? If he was like this with wood, how was he with people?`,
+    ],
+  },
+  talk: {
+    fa: ['پیامبر (ص) موقع حرف زدن به چه چیزی تکیه می‌داد؟', 'چرا برایش منبر ساختند؟', 'تنهٔ درخت چه کرد؟', 'پیامبر (ص) چطور آن را آرام کرد؟'],
+    en: ['What did the Prophet lean on when he spoke?', 'Why did they make him a pulpit?', 'What did the trunk do?', 'How did the Prophet calm it?'],
+  },
+  lesson: { fa: 'پیامبر (ص) با همه مهربان بود؛ حتی با یک تکه چوب. و دوست داشتنِ او یعنی دلمان بخواهد به او و حرف‌هایش نزدیک باشیم.', en: 'The Prophet was kind to all; even to a piece of wood. And loving him means wanting to be close to him and his words.' },
+  keep: null,
+};
