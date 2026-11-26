@@ -1,0 +1,8 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Qasas scenes</title><link rel="stylesheet" href="css/art.css">
+<style>body{margin:0;background:#222;font:12px system-ui;color:#fff}#g{display:grid;grid-template-columns:repeat(var(--c,4),1fr);gap:6px;padding:6px}figure{margin:0;position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:6px}figcaption{position:absolute;left:4px;top:4px;background:#000a;padding:1px 5px;border-radius:4px}</style></head>
+<body><div id="g"></div><script type="module">
+import { SCENES, scene } from './js/art/scenes.js';
+const q = new URLSearchParams(location.search), pre = q.get('p') || '', g = document.getElementById('g');
+g.style.setProperty('--c', q.get('c') || 4);
+try { Object.keys(SCENES).filter(k => k.startsWith(pre)).forEach(k => { const f = document.createElement('figure'); f.innerHTML = scene(k, q.get('move') ? '' : 'still') + `<figcaption>${k}</figcaption>`; g.appendChild(f); }); document.title = 'ok ' + g.children.length; } catch (e) { document.body.textContent = 'ERR ' + e.stack; }
+</script></body></html>

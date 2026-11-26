@@ -1,0 +1,33 @@
+/* Pictures: gentle motion only. Thumbnails (.still) and reduced-motion users get none. */
+.art { display: block; width: 100%; height: 100%; }
+.art .flick, .art .bob, .art .flap, .art .flag, .art .ripple, .art .swim { transform-box: fill-box; }
+.art .tw { animation: tw 3.6s ease-in-out infinite; }
+.art .wave { animation: wave 7s linear infinite; }
+.art .rainfall { animation: rain 0.7s linear infinite; }
+.art .flash { animation: flash 5s steps(1) infinite; }
+.art .flick { transform-origin: 50% 100%; animation: flick 0.9s ease-in-out infinite; }
+.art .flick.f2 { animation-duration: 0.7s; animation-delay: -0.2s; }
+.art .flick.f3 { animation-duration: 0.55s; animation-delay: -0.35s; }
+.art .bob { transform-origin: 50% 100%; animation: bob 4.5s ease-in-out infinite; }
+.art .swim { animation: swim 9s ease-in-out infinite; }
+.art .sway { transform-box: view-box; animation: sway 6s ease-in-out infinite; }
+.art .drift { animation: drift 30s ease-in-out infinite alternate; }
+.art .flap { transform-origin: 50% 50%; animation: flap 0.9s ease-in-out infinite; }
+.art .flag { transform-origin: 0 50%; animation: flag 1.6s ease-in-out infinite; }
+.art .rise { animation: rise 6s linear infinite; }
+.art .ripple { animation: ripple 3s ease-in-out infinite; }
+@keyframes tw { 50% { opacity: 0.25; } }
+@keyframes wave { to { transform: translateX(var(--p, 100px)); } }
+@keyframes rain { to { transform: translate(-9px, 30px); } }
+@keyframes flash { 0%, 6%, 10%, 100% { opacity: 0; } 2%, 8% { opacity: 1; } }
+@keyframes flick { 50% { transform: scale(0.94, 1.08) skewX(3deg); } }
+@keyframes bob { 50% { transform: translateY(-5px) rotate(1.4deg); } }
+@keyframes swim { 50% { transform: translate(14px, -8px); } }
+@keyframes sway { 50% { transform: rotate(1.2deg); } }
+@keyframes drift { to { transform: translateX(26px); } }
+@keyframes flap { 50% { transform: scaleY(0.55); } }
+@keyframes flag { 50% { transform: scaleX(0.86) skewY(6deg); } }
+@keyframes rise { from { transform: translateY(20px); opacity: 0; } 20% { opacity: 0.7; } to { transform: translateY(-120px); opacity: 0; } }
+@keyframes ripple { 50% { transform: scaleX(1.12); opacity: 0.5; } }
+.art.still *, .still .art * { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .art * { animation: none !important; } }
