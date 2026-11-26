@@ -1,6 +1,6 @@
 // Everything the family records stays on this device (localStorage). Export a backup from Settings.
 const KEY = 'qasas.v1';
-const DEF = { kids: [], log: [], favs: {}, checked: {}, set: { night: null, vol: 0.7, amb: true, size: 1, who: 'all', src: false } };
+const DEF = { kids: [], log: [], recs: [], favs: {}, checked: {}, set: { night: null, vol: 0.7, amb: true, size: 1, who: 'all', src: false } };
 const clone = (o) => JSON.parse(JSON.stringify(o));
 
 function read() {
@@ -26,10 +26,11 @@ export const Store = {
   log(entry) { data.log.push({ t: Date.now(), ...entry }); this.save(); },
   toggleFav(id) { if (data.favs[id]) delete data.favs[id]; else data.favs[id] = 1; this.save(); },
   toggleChecked(id) { if (data.checked[id]) delete data.checked[id]; else data.checked[id] = Date.now(); this.save(); },
-  exportText() { return JSON.stringify({ app: 'qasas', v: 1, at: new Date().toISOString(), data }, null, 1); },
+  // Voice recordings are not part of the backup (they live in the device's audio store).
+  exportText() { return JSON.stringify({ app: 'qasas', v: 1, at: new Date().toISOString(), data: { ...data, recs: [] } }, null, 1); },
   importText(text) {
     const o = JSON.parse(text); const d = o && o.app === 'qasas' ? o.data : null;
     if (!d || !Array.isArray(d.log) || !Array.isArray(d.kids)) throw new Error('bad file');
-    data = { ...clone(DEF), ...d, set: { ...DEF.set, ...(d.set || {}) } }; this.save();
+    data = { ...clone(DEF), ...d, recs: data.recs || [], set: { ...DEF.set, ...(d.set || {}) } }; this.save();
   },
 };

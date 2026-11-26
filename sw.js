@@ -1,11 +1,11 @@
 // Offline support. Everything is served from the cache first and refreshed in the background,
 // so the app opens without a connection and picks up new stories on the next launch.
 // Both the install and the background refresh bypass the browser's own cache, so a new version never mixes with old files.
-const CACHE = 'qasas-v3';
+const CACHE = 'qasas-v4';
 const CORE = ['./', 'index.html', 'manifest.webmanifest', 'css/app.css', 'css/art.css', 'fonts/Vazirmatn-wght.woff2',
-  'js/app.js', 'js/audio.js', 'js/store.js', 'js/art/lib.js', 'js/art/scenes.js', 'js/art/scenes2.js',
+  'js/app.js', 'js/audio.js', 'js/store.js', 'js/rec.js', 'js/art/lib.js', 'js/art/scenes.js', 'js/art/scenes2.js',
   'content/catalog.js', 'content/ayat.js', 'content/util.js', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png',
-  ...[4, 7, 8, 9, 13, 21, 22, 25, 29, 30, 32, 34, 37, 38, 52, 58, 60, 61, 63, 68, 75, 77, 78, 82, 86, 91, 92, 96, 100, 103, 111].map((n) => `content/stories/${String(n).padStart(3, '0')}.js`)];
+  ...[1, 2, 4, 7, 8, 9, 13, 15, 16, 17, 18, 21, 22, 23, 24, 25, 29, 30, 31, 32, 33, 34, 37, 38, 52, 53, 58, 59, 60, 61, 62, 63, 64, 68, 74, 75, 77, 78, 79, 80, 82, 85, 86, 91, 92, 93, 94, 96, 100, 103, 111].map((n) => `content/stories/${String(n).padStart(3, '0')}.js`)];
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE.map((u) => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting())); });
 self.addEventListener('activate', (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener('fetch', (e) => {

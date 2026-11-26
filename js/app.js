@@ -2,6 +2,7 @@ import { Sound, CUE_LABEL, AMB_LABEL } from './audio.js';
 import { scene, cover } from './art/scenes.js';
 import { CATALOG, GROUPS } from '../content/catalog.js';
 import { Store } from './store.js';
+import { Clips, Mic, Voice, toB64, fromB64 } from './rec.js';
 
 const app = document.getElementById('app');
 const esc = (s = '') => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -25,15 +26,23 @@ const I = {
 };
 
 const T = {
-  fa: { next: 'بعدی', prev: 'قبلی', start: 'شروع قصه', short: 'کوتاه', full: 'کامل', min: 'دقیقه', prep: 'پیش از خواندن', words: 'واژه‌ها', care: 'حواستان باشد', roots: 'ریشهٔ قصه', ours: 'آنچه ما افزوده‌ایم', left: 'آنچه نیاورده‌ایم', talk: 'حرف بزنیم', lesson: 'درس قصه', keep: 'با هم تکرار کنیم', who: 'چه کسانی شنیدند؟', liked: 'چقدر دوستش داشتید؟', likedSolo: 'چقدر دوستش داشتی؟', note: 'یادداشت: بچه‌ها چه گفتند یا پرسیدند؟', save: 'ثبت و پایان', end: 'پایان قصه', srcOn: 'نمایش منبع', checked: 'خودم بازبینی کردم', caution: 'پیش از خواندن بدانید', page: 'صفحه', everyone: 'همه', back: 'بازگشت', strength: 'اعتبار', version: 'اندازه', lang: 'زبان', tapSound: 'برای صدا، روی این دکمه‌ها بزنید', gold: 'رنگ طلایی یعنی عینِ متنِ منبع' },
-  en: { next: 'Next', prev: 'Back', start: 'Start the story', short: 'Short', full: 'Full', min: 'min', prep: 'Before you read', words: 'Words', care: 'Take care', roots: 'Roots of the story', ours: 'What we added', left: 'What we left out', talk: "Let's talk", lesson: 'The lesson', keep: 'Say it together', who: 'Who listened?', liked: 'How much did you like it?', likedSolo: 'How much did you like it?', note: 'Note: what did the children say or ask?', save: 'Save and finish', end: 'The end', srcOn: 'Show sources', checked: 'I have checked this myself', caution: 'Know this before reading', page: 'Page', everyone: 'Everyone', back: 'Back', strength: 'How solid', version: 'Length', lang: 'Language', tapSound: 'Tap these buttons for sound', gold: 'Gold ink marks words taken from the source' },
+  fa: { next: 'بعدی', prev: 'قبلی', start: 'شروع قصه', short: 'کوتاه', full: 'کامل', min: 'دقیقه', prep: 'پیش از خواندن', words: 'واژه‌ها', care: 'حواستان باشد', roots: 'ریشهٔ قصه', ours: 'آنچه ما افزوده‌ایم', left: 'آنچه نیاورده‌ایم', talk: 'حرف بزنیم', lesson: 'درس قصه', keep: 'با هم تکرار کنیم', who: 'چه کسانی شنیدند؟', liked: 'چقدر دوستش داشتید؟', likedSolo: 'چقدر دوستش داشتی؟', note: 'یادداشت: بچه‌ها چه گفتند یا پرسیدند؟', save: 'ثبت و پایان', end: 'پایان قصه', srcOn: 'نمایش منبع', checked: 'خودم بازبینی کردم', caution: 'پیش از خواندن بدانید', page: 'صفحه', everyone: 'همه', back: 'بازگشت', strength: 'اعتبار', version: 'اندازه', lang: 'زبان', tapSound: 'برای صدا، روی این دکمه‌ها بزنید', gold: 'رنگ طلایی یعنی عینِ متنِ منبع', more: 'بیشتر بدانیم', moreSub: 'برای بزرگ‌ترها' },
+  en: { next: 'Next', prev: 'Back', start: 'Start the story', short: 'Short', full: 'Full', min: 'min', prep: 'Before you read', words: 'Words', care: 'Take care', roots: 'Roots of the story', ours: 'What we added', left: 'What we left out', talk: "Let's talk", lesson: 'The lesson', keep: 'Say it together', who: 'Who listened?', liked: 'How much did you like it?', likedSolo: 'How much did you like it?', note: 'Note: what did the children say or ask?', save: 'Save and finish', end: 'The end', srcOn: 'Show sources', checked: 'I have checked this myself', caution: 'Know this before reading', page: 'Page', everyone: 'Everyone', back: 'Back', strength: 'How solid', version: 'Length', lang: 'Language', tapSound: 'Tap these buttons for sound', gold: 'Gold ink marks words taken from the source', more: 'Learn more', moreSub: 'for older children' },
 };
 const SEAL = {
   fa: { Q: 'قرآن', 'Q+H': 'قرآن و روایت', 'Q+T': 'قرآن و تاریخ', H: 'حدیث', T: 'نقل تاریخی' },
   en: { Q: "Qur'an", 'Q+H': "Qur'an + hadith", 'Q+T': "Qur'an + history", H: 'Hadith', T: 'Historical report' },
 };
 
-const ui = { group: 'all', show: 'all', ver: 'full', lang: 'fa', page: 0, stars: 0, sheet: null, story: null };
+Object.assign(I, {
+  mic: '<svg viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  send: '<svg viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4M5 14v5h14v-5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+});
+// mode: 'read' (someone reads aloud) · 'rec' (recording a family voice) · 'play' (listening to one)
+const ui = { group: 'all', show: 'all', ver: 'full', lang: 'fa', page: 0, stars: 0, sheet: null, story: null, mode: 'read', rec: null, play: null, note: null, pick: false };
+const fmtT = (sec) => faNum(Math.floor(sec / 60) + ':' + String(Math.floor(sec % 60)).padStart(2, '0'));
+const langOf = (st) => (st.title.en && ui.lang === 'en' ? 'en' : 'fa');
+const MIC_MSG = 'برای ضبط، باید به میکروفون اجازه بدهید.';
 const set = () => Store.d.set;
 const solo = () => (set().who !== 'all' && Store.kid(set().who)) || null;
 
@@ -129,6 +138,15 @@ function rootsPanel(st, c, lang) {
     ${r.left ? `<h5>${t.left}</h5><p>${esc(r.left[lang] || r.left.fa)}</p>` : ''}
     <label class="checkrow"><input type="checkbox" data-chg="checked" ${chk ? 'checked' : ''}> ${t.checked}</label></details>`;
 }
+function voicesBox(c) {
+  const recs = Store.d.recs.filter((r) => r.story === c.id), kid = solo();
+  const row = (r) => `<div class="vrow"><button class="pill voice" data-act="playRec" data-id="${r.id}">▶ با صدای ${esc(r.by)} · ${fmtT(r.dur)}${r.ver === 'short' ? ' · کوتاه' : ''}${r.lang === 'en' ? ' · EN' : ''}</button>${kid ? '' : `<button class="icon" data-act="recSend" data-id="${r.id}" aria-label="فرستادن به دستگاه دیگر">${I.send}</button><button class="icon" data-act="recDel" data-id="${r.id}" aria-label="حذف">${I.x}</button>`}</div>`;
+  const names = [...Store.d.kids.map((k) => k.name), 'بابا', 'مامان', 'مادربزرگ', 'پدربزرگ'];
+  const make = !Mic.supported ? '<p class="sub">این مرورگر ضبط صدا را پشتیبانی نمی‌کند.</p>'
+    : ui.pick ? `<p class="sub">چه کسی می‌خواند؟</p><div class="kidrow">${names.map((n) => `<button class="pill" data-act="recStart" data-id="${esc(n)}">${esc(n)}</button>`).join('')}</div><div class="kid new"><input type="text" id="recName" placeholder="نام دیگر"><button class="btn" data-act="recStart">شروع</button></div>`
+      : `<button class="btn ghost" data-act="recNew"><b class="recdot">●</b> ضبطِ این قصه با صدای خودمان</button>`;
+  return `<section class="voices"><h4>${I.mic} صدای خانواده</h4>${recs.map(row).join('')}${make}</section>`;
+}
 function intro(c) {
   const st = ui.story, kid = solo();
   if (!c) return header('home') + '<main class="pad"><p>این قصه پیدا نشد.</p></main>';
@@ -147,8 +165,10 @@ function intro(c) {
     <div class="opts">
       ${st.short ? `<div class="seg" role="group" aria-label="${t.version}"><button class="${ui.ver === 'short' ? 'on' : ''}" data-act="ver" data-id="short">${t.short} · ${num(minutes(st, 'short', lang), lang)} ${t.min}</button><button class="${ui.ver === 'full' ? 'on' : ''}" data-act="ver" data-id="full">${t.full} · ${num(minutes(st, 'full', lang), lang)} ${t.min}</button></div>` : `<span class="chip">${num(minutes(st, 'full', lang), lang)} ${t.min}</span>`}
       ${st.title.en ? `<div class="seg" role="group" aria-label="${t.lang}"><button class="${lang === 'fa' ? 'on' : ''}" data-act="lang" data-id="fa">فارسی</button><button class="${lang === 'en' ? 'on' : ''}" data-act="lang" data-id="en">English</button></div>` : ''}
+      ${st.more ? `<span class="chip">＋ ${t.more}</span>` : ''}
     </div>
     <a class="btn big" href="#/s/${c.id}/read" data-act="begin">${t.start}</a>
+    ${voicesBox(c)}
     ${kid ? '' : `${st.roots.caution ? `<div class="caution"><b>${t.caution}</b><p>${esc(st.roots.caution[lang] || st.roots.caution.fa)}</p></div>` : ''}
     <section class="prep"><h4>${t.prep}</h4><p>${esc(p.gist)}</p>
       ${p.words && p.words.length ? `<h5>${t.words}</h5><dl>${p.words.map(([w, m]) => `<div><dt>${esc(w)}</dt><dd>${esc(m)}</dd></div>`).join('')}</dl>` : ''}
@@ -163,38 +183,63 @@ function minutes(st, ver, lang) {
   return Math.max(1, Math.round(words / 75));
 }
 function pagesOf(st) { return ui.ver === 'short' && st.short ? st.short : st.full; }
+function recCtl() {
+  const take = ui.rec.takes[ui.page];
+  if (Mic.on) return `<button class="btn recbtn live" data-act="recStop">■ <span id="rtime">${fmtT(0)}</span></button>`;
+  if (take) return `<button class="btn ghost" data-act="recHear">▶ ${fmtT(take.dur)}</button><button class="btn ghost" data-act="recGo" aria-label="دوباره">↺</button>`;
+  return `<button class="btn recbtn" data-act="recGo">● ضبطِ این صفحه</button>`;
+}
+function noteCtl() {
+  if (!Mic.supported) return '';
+  const n = ui.note;
+  if (n && n.on) return `<button class="btn recbtn live" data-act="noteStop">■ <span id="rtime">${fmtT(0)}</span></button>`;
+  if (n && n.clip) return `<button class="btn ghost" data-act="noteHear">▶ ${fmtT(n.clip.dur)}</button><button class="btn ghost" data-act="noteGo">↺ دوباره</button><button class="icon" data-act="noteDrop" aria-label="حذف">${I.x}</button>`;
+  return `<button class="btn ghost" data-act="noteGo">${I.mic} ضبط صدای بچه‌ها (تا ۳۰ ثانیه)</button>`;
+}
 function reader(c) {
   const st = ui.story; if (!st) return '';
-  const lang = st.title.en && ui.lang === 'en' ? 'en' : 'fa', t = T[lang], dir = lang === 'en' ? 'ltr' : 'rtl', kid = solo();
+  const lang = langOf(st), t = T[lang], dir = lang === 'en' ? 'ltr' : 'rtl', kid = solo();
+  const rec = ui.mode === 'rec' ? ui.rec : null, play = ui.mode === 'play' ? ui.play : null;
   const pages = pagesOf(st), last = ui.page >= pages.length, pg = pages[Math.min(ui.page, pages.length - 1)];
   const dots = pages.map((_, i) => `<i class="${i === ui.page ? 'on' : i < ui.page ? 'past' : ''}"></i>`).join('') + `<i class="fin ${last ? 'on' : ''}"></i>`;
-  const bar = `<header class="rbar"><a class="icon" href="#/s/${c.id}" aria-label="${t.back}">${I.x}</a><span class="ttl">${esc(st.title[lang])}</span>
-    <button class="icon ${set().amb ? 'on' : ''}" data-act="amb" aria-label="sound">${set().amb ? I.sound : I.mute}</button>
-    ${kid ? '' : `<button class="icon ${set().src ? 'on' : ''}" data-act="src" aria-label="${t.srcOn}">${I.root}</button>`}
+  const label = rec ? `<b class="recdot">●</b> ضبط · ${esc(rec.by)}${last ? '' : ' · ' + faNum(ui.page + 1) + ' از ' + faNum(pages.length)}` : play ? `با صدای ${esc(play.rec.by)}` : esc(st.title[lang]);
+  const bar = `<header class="rbar"><a class="icon" href="#/s/${c.id}" aria-label="${t.back}">${I.x}</a><span class="ttl">${label}</span>
+    ${play && !last ? `<button class="icon on" data-act="voiceToggle" aria-label="pause">${play.paused ? '▶' : '❚❚'}</button>` : ''}
+    ${rec ? '' : `<button class="icon ${set().amb ? 'on' : ''}" data-act="amb" aria-label="sound">${set().amb ? I.sound : I.mute}</button>`}
+    ${kid || rec || play ? '' : `<button class="icon ${set().src ? 'on' : ''}" data-act="src" aria-label="${t.srcOn}">${I.root}</button>`}
     <button class="icon txt" data-act="size">Aa</button></header>`;
   let body;
   if (!last) {
     const paras = pg[lang] || pg.fa;
     const refs = (pg.refs || []).map((id) => st.roots.list.find((x) => x.id === id)).filter(Boolean);
-    body = `<div class="rart">${scene(pg.art)}${pg.amb && AMB_LABEL[pg.amb] ? `<span class="amb">♪ ${AMB_LABEL[pg.amb][lang]}</span>` : ''}</div>
-      <article class="rtext">${paras.map((x) => `<p>${rich(x, lang, !!kid)}</p>`).join('')}
-      ${!kid && set().src && refs.length ? `<div class="refs">${refs.map((x) => `<button class="chip ref" data-act="sheet" data-id="${x.id}">${I.root} ${esc(x.ref[lang] || x.ref.fa)}</button>`).join('')}</div>` : ''}</article>`;
+    body = `<div class="rart">${scene(pg.art)}${!rec && pg.amb && AMB_LABEL[pg.amb] ? `<span class="amb">♪ ${AMB_LABEL[pg.amb][lang]}</span>` : ''}</div>
+      <article class="rtext">${play && play.missing ? '<p class="sub">صدای این صفحه روی این دستگاه نیست.</p>' : ''}${paras.map((x) => `<p>${rich(x, lang, (!!kid && !rec) || !!play)}</p>`).join('')}
+      ${!kid && !rec && !play && set().src && refs.length ? `<div class="refs">${refs.map((x) => `<button class="chip ref" data-act="sheet" data-id="${x.id}">${I.root} ${esc(x.ref[lang] || x.ref.fa)}</button>`).join('')}</div>` : ''}</article>`;
+  } else if (rec) {
+    const n = Object.keys(rec.takes).length, total = Object.values(rec.takes).reduce((a, x) => a + x.dur, 0);
+    body = `<div class="rart">${scene(pages[pages.length - 1].art)}</div><article class="rtext end"><h2>ضبط تمام شد</h2>
+      <div class="box"><p>${faNum(n)} صفحه با صدای ${esc(rec.by)} · ${fmtT(total)}</p><p class="sub">این صدا فقط روی همین دستگاه می‌ماند و جایی فرستاده نمی‌شود.</p>
+      <div class="rowbtn"><button class="btn big" data-act="recSave">ذخیره</button><a class="btn ghost" href="#/s/${c.id}">دور بریز</a></div></div></article>`;
   } else {
-    const kids = Store.d.kids, k = st.keep;
+    const kids = Store.d.kids, k = st.keep, more = st.more && (st.more[lang] || st.more.fa);
+    const moreMin = more ? Math.max(1, Math.round(more.join(' ').split(/\s+/).length / 75)) : 0;
     body = `<div class="rart">${scene(pages[pages.length - 1].art)}</div><article class="rtext end">
       <h2>${t.end}</h2>
       ${st.lesson ? `<div class="box"><h4>${t.lesson}</h4><p>${esc(st.lesson[lang] || st.lesson.fa)}</p></div>` : ''}
       ${st.talk ? `<div class="box"><h4>${t.talk}</h4><ul>${(st.talk[lang] || st.talk.fa).map((q) => `<li>${esc(q)}</li>`).join('')}</ul></div>` : ''}
+      ${more ? `<details class="box more"><summary><span>${t.more}</span><small>${t.moreSub} · ${num(moreMin, lang)} ${t.min}</small></summary>${more.map((x) => (x.startsWith('## ') ? `<h5>${esc(x.slice(3))}</h5>` : `<p>${rich(x, lang, false)}</p>`)).join('')}</details>` : ''}
       ${k ? `<div class="box keep"><h4>${t.keep}</h4>${k.ar ? `<p class="ar" lang="ar" dir="rtl">${esc(k.ar)}</p>` : ''}<p>${esc(k[lang] || k.fa)}</p><small>${esc(k.ref[lang] || k.ref.fa)}</small></div>` : ''}
       <div class="box logbox">
         ${kid ? '' : kids.length ? `<h4>${t.who}</h4><div class="kidrow">${kids.map((x) => `<label class="pill"><input type="checkbox" name="kid" value="${x.id}" checked> ${esc(x.name)}</label>`).join('')}</div>` : ''}
         <h4>${kid ? t.likedSolo : t.liked}</h4><div class="stars">${[1, 2, 3].map((n) => `<button class="${ui.stars >= n ? 'on' : ''}" data-act="stars" data-id="${n}" aria-label="${n}">${I.star}</button>`).join('')}</div>
         ${kid ? '' : `<textarea id="note" rows="2" placeholder="${t.note}"></textarea>`}
+        <div class="vnote">${noteCtl()}</div>
         <button class="btn big" data-act="save">${t.save}</button></div></article>`;
   }
   const sheet = ui.sheet ? (() => { const x = st.roots.list.find((y) => y.id === ui.sheet); return x ? `<div class="sheet" data-act="closeSheet"><div class="inner"><h5>${esc(x.ref[lang] || x.ref.fa)}</h5>${x.ar ? `<p class="ar" lang="ar" dir="rtl">${esc(x.ar)}</p>` : ''}${x.gloss ? `<p>${esc(x.gloss[lang] || x.gloss.fa)}</p>` : ''}<button class="btn ghost" data-act="closeSheet">${t.back}</button></div></div>` : ''; })() : '';
+  const prevOff = ui.page === 0 || (rec && Mic.on), nextOff = last || (rec && (Mic.on || !rec.takes[ui.page]));
   return `<div class="reader" dir="${dir}" lang="${lang}">${bar}<div class="rbody">${body}</div>
-    <footer class="rnav"><button class="btn ghost" data-act="prev" ${ui.page === 0 ? 'disabled' : ''}>${t.prev}</button><div class="dots">${dots}</div><button class="btn" data-act="next" ${last ? 'disabled' : ''}>${t.next}</button></footer>${sheet}</div>`;
+    <footer class="rnav"><button class="btn ghost" data-act="prev" ${prevOff ? 'disabled' : ''}>${t.prev}</button>${rec && !last ? `<div class="recctl">${recCtl()}</div>` : `<div class="dots">${dots}</div>`}<button class="btn" data-act="next" ${nextOff ? 'disabled' : ''}>${t.next}</button></footer>${sheet}</div>`;
 }
 
 function sky() {
@@ -212,7 +257,7 @@ function sky() {
     <h2>${faNum(read.size)} ستاره از ${faNum(CATALOG.length)}</h2><p class="sub">هر قصه‌ای که خوانده شود، یک ستاره روشن می‌شود.</p>
     ${set().who === 'all' && kids.length ? `<div class="who"><button class="pill sm ${who === 'all' ? 'on' : ''}" data-act="skyWho" data-id="all">همه</button>${kids.map((k) => `<button class="pill sm ${who === k.id ? 'on' : ''}" data-act="skyWho" data-id="${k.id}">${esc(k.name)}</button>`).join('')}</div>` : ''}
     <h3>دفترِ قصه‌خوانی</h3>
-    ${hist.length ? `<ul class="hist">${hist.map((l) => { const s = byId[l.id]; const names = (l.kids || []).map((id) => (Store.kid(id) || {}).name).filter(Boolean).join('، '); return `<li><a href="#/s/${l.id}"><b>${esc(s ? s.fa : l.id)}</b></a><span class="st">${'★'.repeat(l.stars || 0)}</span><small>${fmt.format(new Date(l.t))}${names ? ' · ' + esc(names) : ''}${l.by && l.by !== 'parent' ? ' · خودش خواند' : ''}${l.ver === 'short' ? ' · کوتاه' : ''}</small>${l.note ? `<p>${esc(l.note)}</p>` : ''}</li>`; }).join('')}</ul>` : '<p class="empty">هنوز قصه‌ای ثبت نشده است.</p>'}</main>`;
+    ${hist.length ? `<ul class="hist">${hist.map((l) => { const s = byId[l.id]; const names = (l.kids || []).map((id) => (Store.kid(id) || {}).name).filter(Boolean).join('، '); return `<li><a href="#/s/${l.id}"><b>${esc(s ? s.fa : l.id)}</b></a><span class="st">${'★'.repeat(l.stars || 0)}</span><small>${fmt.format(new Date(l.t))}${names ? ' · ' + esc(names) : ''}${l.rec ? ' · با صدای ' + esc(l.rec) : l.by && l.by !== 'parent' ? ' · خودش خواند' : ''}${l.ver === 'short' ? ' · کوتاه' : ''}</small>${l.note ? `<p>${esc(l.note)}</p>` : ''}${l.voice ? `<button class="pill sm" data-act="playNote" data-id="${l.voice}">▶ صدای بچه‌ها</button>` : ''}</li>`; }).join('')}</ul>` : '<p class="empty">هنوز قصه‌ای ثبت نشده است.</p>'}</main>`;
 }
 
 function settings() {
@@ -229,6 +274,8 @@ function settings() {
       <div class="line"><span>روز / شب</span><div class="seg"><button class="${s.night === null ? 'on' : ''}" data-act="theme" data-id="auto">خودکار</button><button class="${s.night === false ? 'on' : ''}" data-act="theme" data-id="day">روز</button><button class="${s.night === true ? 'on' : ''}" data-act="theme" data-id="night">شب</button></div></div></section>
     <section><h3>پشتیبان</h3><p class="sub">دفتر قصه‌خوانی فقط روی همین دستگاه ذخیره می‌شود. گاهی یک پشتیبان بگیرید.</p>
       <div class="rowbtn"><button class="btn" data-act="export">گرفتن پشتیبان</button><label class="btn ghost">بازگرداندن<input type="file" accept="application/json,.json" data-chg="import" hidden></label></div></section>
+    <section><h3>صدای خانواده</h3><p class="sub">${faNum(Store.d.recs.length)} قصه با صدای خانواده روی این دستگاه ضبط شده است. صداها جایی فرستاده نمی‌شوند و در «پشتیبان» هم نیستند. برای بردن یک صدا به دستگاه دیگر، در صفحهٔ همان قصه دکمهٔ فرستادن را بزنید و فایل را اینجا باز کنید.</p>
+      <div class="rowbtn"><label class="btn ghost">افزودن صدا از فایل<input type="file" accept="application/json,.json" data-chg="voiceIn" hidden></label></div></section>
     <section class="about"><h3>دربارهٔ قصص</h3>
       <p>هر قصه از قرآن یا کتاب‌های کهن گرفته شده و با زبان ساده بازنویسی شده است. منبع و متن عربی هر قصه در بخش «ریشهٔ قصه» آمده است. چیزی به رویدادها افزوده نشده است.</p>
       <p>در تصویرها چهرهٔ پیامبران و امامان (ع) کشیده نمی‌شود. صداها فقط صدای طبیعت و محیط است.</p>
@@ -250,7 +297,35 @@ function parse() {
   if (h[0] === 'set') return { v: 'set' };
   return { v: 'home' };
 }
-let route = { v: 'home' }, lastKey = '';
+let route = { v: 'home' }, lastKey = '', playKey = '', pageKey = '', tickH = null;
+function startTick(limit, onLimit) {
+  stopTick();
+  tickH = setInterval(() => { const el = app.querySelector('#rtime'), sec = Mic.elapsed; if (el) el.textContent = fmtT(sec); if (limit && sec >= limit) onLimit(); }, 250);
+}
+function stopTick() { clearInterval(tickH); tickH = null; }
+// Leaving the reader: stop any voice, free the microphone, and drop a recording that was not saved.
+function leaveReader() {
+  stopTick(); Voice.stop(); Mic.close(); playKey = '';
+  if (ui.rec && !ui.rec.saved) Object.keys(ui.rec.takes).forEach((pg) => Clips.del(`r:${ui.rec.id}:${pg}`).catch(() => {}));
+  if (ui.mode === 'play') Sound.volume(set().vol);
+  ui.rec = null; ui.play = null; ui.note = null; ui.mode = 'read';
+}
+// Listening to a family voice: play the clip of the page on screen, replay its sound buttons, then turn the page.
+async function syncVoice() {
+  const p = ui.play, pages = pagesOf(ui.story), key = p.rec.id + ':' + ui.page;
+  if (key === playKey) return;
+  playKey = key; Voice.stop(); p.missing = false;
+  if (ui.page >= pages.length) return;
+  const clip = await Clips.get(`r:${p.rec.id}:${ui.page}`).catch(() => null);
+  if (playKey !== key || ui.mode !== 'play') return;
+  if (!clip) { p.missing = true; render(); return; }
+  const cues = (clip.cues || []).slice().sort((a, b) => a.t - b.t); let i = 0;
+  const ok = await Voice.play(clip, {
+    onTime: (sec) => { while (i < cues.length && cues[i].t <= sec) { const id = cues[i++].id; if (sec !== Infinity) { Sound.cue(id); const b = app.querySelector(`.cue[data-id="${id}"]`); if (b) { b.classList.remove('hit'); void b.offsetWidth; b.classList.add('hit'); } } } },
+    onEnd: () => setTimeout(() => { if (playKey === key && ui.mode === 'play' && !ui.play.paused) turn(1); }, 700),
+  });
+  if (!ok && playKey === key) { p.paused = true; render(); }
+}
 async function go() {
   route = parse(); applyTheme();
   const key = route.v + (route.id || '');
@@ -260,7 +335,8 @@ async function go() {
     if (route.v === 'read' && !ui.story) { location.hash = '#/s/' + route.id; return; }
     if (key !== lastKey && route.v === 'read') { ui.page = 0; ui.stars = 0; ui.sheet = null; }
   }
-  if (route.v !== 'read') { Sound.stop(); keepAwake(false); }
+  if (route.v !== 'read') { Sound.stop(); keepAwake(false); leaveReader(); }
+  if (key !== lastKey) ui.pick = false;
   render(); if (key !== lastKey) window.scrollTo(0, 0); lastKey = key;
 }
 function render() {
@@ -269,13 +345,17 @@ function render() {
   app.innerHTML = route.v === 'home' ? home() : route.v === 'intro' ? intro(c) : route.v === 'read' ? reader(c) : route.v === 'sky' ? sky() : settings();
   if (route.v === 'read') {
     const pages = pagesOf(ui.story), pg = pages[ui.page];
-    Sound.ambience(pg ? pg.amb : pages[pages.length - 1].amb);
+    Sound.ambience(ui.mode === 'rec' ? null : pg ? pg.amb : pages[pages.length - 1].amb);
     keepAwake(true);
-    const b = app.querySelector('.rbody'); if (b) b.scrollTop = 0;
+    const k = route.id + ':' + ui.page + ':' + ui.mode, b = app.querySelector('.rbody');
+    if (b && k !== pageKey) b.scrollTop = 0;
+    pageKey = k;
+    if (ui.mode === 'play' && ui.play) syncVoice();
   }
 }
 function turn(d) {
   const pages = pagesOf(ui.story), n = Math.max(0, Math.min(pages.length, ui.page + d));
+  if (ui.mode === 'rec' && ui.rec && (Mic.on || (d > 0 && !ui.rec.takes[ui.page]))) return;
   if (n !== ui.page) { ui.page = n; ui.sheet = null; render(); }
 }
 
@@ -290,8 +370,14 @@ const ACT = {
   fav: () => { Store.toggleFav(route.id); render(); },
   ver: (el) => { ui.ver = el.dataset.id; render(); },
   lang: (el) => { ui.lang = el.dataset.id; render(); },
-  begin: () => { Sound.unlock(); Sound.volume(set().vol); Sound.ambienceOn(set().amb); },
-  cue: (el) => { Sound.unlock(); Sound.cue(el.dataset.id); el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit'); },
+  begin: () => { ui.mode = 'read'; Sound.unlock(); Sound.volume(set().vol); Sound.ambienceOn(set().amb); },
+  // While a page is being recorded the sound button stays silent (the microphone would pick it up);
+  // its moment is remembered and the sound is played again at that point when someone listens.
+  cue: (el) => {
+    if (ui.mode === 'rec' && Mic.on) ui.rec.cues.push({ t: Mic.elapsed, id: el.dataset.id });
+    else { Sound.unlock(); Sound.cue(el.dataset.id); }
+    el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit');
+  },
   amb: () => { Sound.unlock(); set().amb = !set().amb; Store.save(); Sound.ambienceOn(set().amb); render(); },
   src: () => { set().src = !set().src; Store.save(); render(); },
   size: () => { const steps = [1, 1.15, 1.3, 0.9]; set().size = steps[(steps.indexOf(set().size) + 1) % steps.length] || 1; Store.save(); applyTheme(); },
@@ -299,17 +385,92 @@ const ACT = {
   sheet: (el) => { ui.sheet = el.dataset.id; render(); },
   closeSheet: (el, e) => { if (e.target.closest('.inner') && !e.target.closest('button')) return; ui.sheet = null; render(); },
   stars: (el) => { ui.stars = +el.dataset.id; app.querySelectorAll('.stars button').forEach((b, i) => b.classList.toggle('on', i < ui.stars)); },
-  save: () => {
+  save: async () => {
     const kid = solo(), note = (app.querySelector('#note') || {}).value || '';
     const kids = kid ? [kid.id] : [...app.querySelectorAll('input[name=kid]:checked')].map((x) => x.value);
-    Store.log({ id: route.id, kids, ver: ui.ver, lang: ui.lang, stars: ui.stars, note: note.trim(), by: kid ? kid.id : 'parent' });
-    Sound.stop(); location.hash = '#/sky';
+    const entry = { id: route.id, kids, ver: ui.ver, lang: ui.lang, stars: ui.stars, note: note.trim(), by: kid ? kid.id : 'parent' };
+    if (ui.mode === 'play' && ui.play) entry.rec = ui.play.rec.by;
+    if (ui.note && ui.note.on) await ACT.noteStop();
+    if (ui.note && ui.note.clip) { const id = 'n' + Date.now().toString(36); try { await Clips.put('n:' + id, ui.note.clip); entry.voice = id; } catch (e) { /* storage full: keep the written entry */ } }
+    Store.log(entry); Sound.stop(); location.hash = '#/sky';
   },
+  // ----- family voices -----
+  recNew: () => { const kid = solo(); if (kid) ACT.recStart({ dataset: { id: kid.name } }); else { ui.pick = true; render(); } },
+  recStart: (el) => {
+    const name = (el.dataset.id || (app.querySelector('#recName') || {}).value || '').trim(); if (!name) return;
+    Sound.unlock(); Voice.prime();
+    ui.pick = false; ui.mode = 'rec'; ui.rec = { id: 'v' + Date.now().toString(36), by: name, takes: {}, cues: [], saved: false };
+    lastKey = ''; location.hash = `#/s/${route.id}/read`;
+  },
+  recGo: async () => {
+    const r = ui.rec; if (!r || Mic.on) return;
+    Voice.stop();
+    try { await Mic.open(); } catch (e) { alert(MIC_MSG); return; }
+    r.cues = []; Mic.start(); startTick(600, () => ACT.recStop()); render();
+  },
+  recStop: async () => {
+    const r = ui.rec; if (!r || !Mic.on) return;
+    stopTick(); const page = ui.page, clip = await Mic.stop();
+    if (clip) { clip.cues = r.cues; try { await Clips.put(`r:${r.id}:${page}`, clip); r.takes[page] = { dur: clip.dur }; } catch (e) { alert('جا برای ذخیرهٔ صدا نیست.'); } }
+    render();
+  },
+  recHear: async () => { Voice.prime(); if (Voice.loaded && !Voice.paused) { Voice.stop(); return; } const clip = await Clips.get(`r:${ui.rec.id}:${ui.page}`); if (clip) Voice.play(clip); },
+  recSave: () => {
+    const r = ui.rec; if (!r) return; const takes = Object.values(r.takes);
+    Store.d.recs.push({ id: r.id, story: route.id, ver: ui.ver, lang: langOf(ui.story), by: r.by, t: Date.now(), pages: takes.length, dur: takes.reduce((a, x) => a + x.dur, 0) });
+    Store.save(); r.saved = true;
+    if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+    location.hash = '#/s/' + route.id;
+  },
+  recDel: async (el) => {
+    const r = Store.d.recs.find((x) => x.id === el.dataset.id); if (!r || !confirm(`صدای ${r.by} برای این قصه پاک شود؟`)) return;
+    for (let i = 0; i < r.pages; i++) await Clips.del(`r:${r.id}:${i}`).catch(() => {});
+    Store.d.recs = Store.d.recs.filter((x) => x !== r); Store.save(); render();
+  },
+  recSend: async (el) => {
+    const r = Store.d.recs.find((x) => x.id === el.dataset.id); if (!r) return; const pages = [];
+    for (let i = 0; i < r.pages; i++) { const c = await Clips.get(`r:${r.id}:${i}`).catch(() => null); if (!c) { alert('صدای این قصه روی این دستگاه کامل نیست.'); return; } pages.push({ mime: c.mime, dur: c.dur, cues: c.cues || [], b64: toB64(c.buf) }); }
+    const file = new File([JSON.stringify({ app: 'qasas-voice', v: 1, meta: r, pages })], `qasas-voice-${r.story}-${r.id}.json`, { type: 'application/json' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: 'قصص' }); return; } catch (e) { if (e.name === 'AbortError') return; } }
+    const a = document.createElement('a'); a.href = URL.createObjectURL(file); a.download = file.name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  },
+  playRec: (el) => {
+    const r = Store.d.recs.find((x) => x.id === el.dataset.id); if (!r) return;
+    Sound.unlock(); Voice.prime(); Sound.volume(set().vol * 0.5); Sound.ambienceOn(set().amb);
+    ui.mode = 'play'; ui.play = { rec: r, paused: false, missing: false }; ui.ver = r.ver; ui.lang = r.lang;
+    playKey = ''; lastKey = ''; location.hash = `#/s/${r.story}/read`;
+  },
+  voiceToggle: () => {
+    const p = ui.play; if (!p) return; Voice.prime();
+    if (p.paused) { p.paused = false; if (Voice.loaded) Voice.resume(); else { playKey = ''; } } else { p.paused = true; Voice.pause(); }
+    render();
+  },
+  // ----- children's voice note on the last page -----
+  noteGo: async () => {
+    Sound.unlock(); Voice.stop();
+    try { await Mic.open(); } catch (e) { alert(MIC_MSG); return; }
+    Sound.ambience(null); Mic.start(); ui.note = { on: true }; startTick(30, () => ACT.noteStop()); refreshNote();
+  },
+  noteStop: async () => { if (!ui.note || !ui.note.on) return; stopTick(); const clip = await Mic.stop(); ui.note = clip ? { clip } : null; refreshNote(); },
+  noteHear: () => { Voice.prime(); if (Voice.loaded && !Voice.paused) { Voice.stop(); return; } if (ui.note && ui.note.clip) Voice.play(ui.note.clip); },
+  noteDrop: () => { Voice.stop(); ui.note = null; refreshNote(); },
+  playNote: async (el) => { Voice.prime(); const clip = await Clips.get('n:' + el.dataset.id).catch(() => null); if (clip) Voice.play(clip); else alert('این صدا روی این دستگاه نیست.'); },
   kidAdd: () => { const n = app.querySelector('#newName').value.trim(), a = +app.querySelector('#newAge').value; if (!n || !a) return; Store.addKid(n, a); render(); },
   kidDel: (el) => { const k = Store.kid(el.dataset.id); if (k && confirm(`«${k.name}» از فهرست حذف شود؟ دفتر قصه‌ها می‌ماند.`)) { Store.removeKid(k.id); render(); } },
   export: () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([Store.exportText()], { type: 'application/json' })); a.download = `qasas-${new Date().toISOString().slice(0, 10)}.json`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); },
 };
+function refreshNote() { const box = app.querySelector('.vnote'); if (box) box.innerHTML = noteCtl(); }
 const CHG = {
+  voiceIn: async (el) => {
+    const f = el.files[0]; if (!f) return;
+    try {
+      const o = JSON.parse(await f.text()); if (o.app !== 'qasas-voice' || !o.meta || !byId[o.meta.story] || !Array.isArray(o.pages)) throw new Error('bad file');
+      const id = 'v' + Date.now().toString(36);
+      for (let i = 0; i < o.pages.length; i++) { const pg = o.pages[i]; await Clips.put(`r:${id}:${i}`, { buf: fromB64(pg.b64), mime: pg.mime, dur: pg.dur, cues: pg.cues || [] }); }
+      Store.d.recs.push({ ...o.meta, id, pages: o.pages.length }); Store.save(); render();
+      alert(`صدای ${o.meta.by} برای «${byId[o.meta.story].fa}» افزوده شد.`);
+    } catch (e) { alert('این فایل، صدای ضبط‌شدهٔ قصص نیست.'); }
+  },
   checked: () => { Store.toggleChecked(route.id); render(); },
   kidName: (el) => { const k = Store.kid(el.dataset.id); if (k && el.value.trim()) { k.name = el.value.trim(); Store.save(); } },
   kidAge: (el) => { const k = Store.kid(el.dataset.id); if (k && +el.value > 0) { k.born = new Date().getFullYear() - +el.value; Store.save(); } },

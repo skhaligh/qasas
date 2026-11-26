@@ -23,6 +23,8 @@ Then open http://localhost:4173. To install it on a phone or tablet (and use it 
 | `js/art/` | Pictures, drawn in code (`lib.js` = shared pieces, `scenes.js` and `scenes2.js` = one function per picture). |
 | `js/audio.js` | Sounds, synthesised in the browser (no audio files). |
 | `js/app.js`, `js/store.js` | The app and the on-device reading log. |
+| `js/rec.js` | Family voices: recording a story page by page, playing it back, and children's voice notes. Audio stays in the device's own store (IndexedDB); nothing is uploaded. |
+| `tools/ayat.json` | The Qur'an verses the stories quote, as fetched. Add verses here, then rerun the builder. |
 | `art-preview.html` | Contact sheet of every picture (`?p=nuh` filters, `?move=1` animates). |
 
 ## Rules for stories
@@ -36,6 +38,8 @@ Then open http://localhost:4173. To install it on a phone or tablet (and use it 
 7. Prophets and Imams are always named with a respectful title in narration: «حضرت نوح (ع)», «پیامبر (ص)», «امام علی (ع)», «حضرت فاطمه (س)». Words quoted from a source inside `{{…}}` stay as the source has them.
 8. Where reports differ, follow the Shia sources (al-Kafi, al-Saduq's books, Tafsir al-Qummi, Majma' al-Bayan) and say in `roots` which report each part comes from.
 9. English is written only for the ten pilot stories; the rest are Farsi only (leave out `en`).
+10. Length: the short version (ages 3–5) is 1–1½ minutes; the full version is 350–500 words (5–6 minutes). A source that is only a few lines is joined with related verified reports, never padded.
+11. Stories marked 6+ or 9+ also carry `more` («بیشتر بدانیم», for the older children): a list of paragraphs shown behind a button on the last page. A line starting with `## ` is a small heading. Same sourcing rules as the story.
 
 ## Adding a story
 

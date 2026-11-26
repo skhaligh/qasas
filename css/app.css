@@ -191,3 +191,26 @@ textarea { width: 100%; border-radius: 10px; border: 1.5px solid var(--line); ba
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .intro h1 { font-size: 1.6rem; }
 }
+
+/* ---------- family voices ---------- */
+.voices { margin: 14px 0 6px; padding: 12px 14px; border-radius: var(--r); background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); }
+.voices h4 { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--gold); margin-bottom: 8px; }
+.voices .kidrow { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 8px; }
+.vrow { display: flex; align-items: center; gap: 4px; margin-bottom: 8px; }
+.pill.voice { background: var(--lapis); color: var(--bg); box-shadow: none; font-weight: 700; padding: 9px 16px; }
+.recdot { color: #d4372c; }
+.recbtn { background: #b3261e; color: #fff; }
+.recbtn.live { animation: recpulse 1.2s ease-in-out infinite; }
+@keyframes recpulse { 50% { opacity: 0.6; } }
+.recctl { display: flex; gap: 6px; align-items: center; justify-content: center; flex: 1; }
+.rnav .recctl .btn { min-width: 0; padding: 11px 16px; }
+.vnote { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 10px 0 12px; }
+.hist .pill.sm { margin-top: 6px; }
+/* ---------- "learn more", for the older children ---------- */
+.more summary { display: flex; align-items: baseline; gap: 8px; cursor: pointer; font-weight: 700; list-style: none; color: var(--gold); }
+.more summary::-webkit-details-marker { display: none; }
+.more summary small { color: var(--muted); font-weight: 400; }
+.more summary::after { content: '＋'; margin-inline-start: auto; color: var(--muted); }
+.more[open] summary::after { content: '−'; }
+.more p { margin: 0.8em 0 0; }
+.more h5 { margin: 1.1em 0 0; color: var(--muted); font-size: 0.9em; }
