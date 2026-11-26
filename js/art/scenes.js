@@ -1,5 +1,6 @@
 // One function per picture. Scenes show only what the sources mention, or neutral setting.
 import * as L from './lib.js';
+import addMore from './scenes2.js';
 const { P } = L;
 const R = (x, y, w, h, fill, extra = '') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}" ${extra}/>`;
 const E = (cx, cy, rx, ry, fill, extra = '') => `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${fill}" ${extra}/>`;
@@ -198,6 +199,8 @@ S.jwd2 = () => L.sky('day') + L.sun(120, 90, 36) + baghdad(300) + R(0, 300, 800,
 S.jwd3 = () => L.sky('day') + L.sun(660, 100, 40) + L.cloud(220, 90, 1) + baghdad(280) + R(0, 280, 800, 20, P.sea1) + L.land(304, P.leaf1, 3, 6)
   + L.land(326, P.sand1, 5, 8) + Pth('M40 500 L340 326 L460 326 L760 500Z', '#f3e3bb') + Pth('M392 500 L398 330 L402 330 L408 500Z', '#e6cf9f')
   + L.palm(110, 420, 150, 10) + L.palm(700, 426, 140, -10) + L.bird(420, 150, 2, '#5a4a3a', 'flap') + toys(400, 470);
+
+addMore(S, { R, E, Pth, floor, woodPile, ridgeArmy, toys, room, windowArch, lane, laneDoors, stones, idolBits });
 
 // ---------- covers for stories not written yet ----------
 const GROUP_TINT = { A: ['#1f3a6e', '#2f6f8b'], B: ['#1f6b5a', '#3d8262'], C: ['#6a2f4e', '#b9573d'], D: ['#5a4a2a', '#a9773f'] };

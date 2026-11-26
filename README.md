@@ -16,11 +16,11 @@ Then open http://localhost:4173. To install it on a phone or tablet (and use it 
 
 | Path | What |
 |---|---|
-| `story-list.md` | The 110 planned stories with sources. Single source for titles, ages and types. |
+| `story-list.md` | The 111 planned stories with sources. Single source for titles, ages and types. |
 | `content/stories/NNN.js` | One file per written story: Farsi and English text, pages, sounds, sources, questions. |
 | `content/catalog.js`, `content/ayat.js` | Generated. Do not edit by hand. |
 | `tools/build_catalog.py` | Rebuilds the two generated files. |
-| `js/art/` | Pictures, drawn in code (`lib.js` = shared pieces, `scenes.js` = one function per picture). |
+| `js/art/` | Pictures, drawn in code (`lib.js` = shared pieces, `scenes.js` and `scenes2.js` = one function per picture). |
 | `js/audio.js` | Sounds, synthesised in the browser (no audio files). |
 | `js/app.js`, `js/store.js` | The app and the on-device reading log. |
 | `art-preview.html` | Contact sheet of every picture (`?p=nuh` filters, `?move=1` animates). |
@@ -33,12 +33,15 @@ Then open http://localhost:4173. To install it on a phone or tablet (and use it 
 4. `roots.ours` says what the storyteller added; `roots.left` says what popular versions have that we left out; `roots.caution` flags a weak or doubted report.
 5. Pictures show places, objects, animals and nature only. No holy figures, and nothing the sources do not support.
 6. Sounds are natural and environmental only. No instruments.
+7. Prophets and Imams are always named with a respectful title in narration: «حضرت نوح (ع)», «پیامبر (ص)», «امام علی (ع)», «حضرت فاطمه (س)». Words quoted from a source inside `{{…}}` stay as the source has them.
+8. Where reports differ, follow the Shia sources (al-Kafi, al-Saduq's books, Tafsir al-Qummi, Majma' al-Bayan) and say in `roots` which report each part comes from.
+9. English is written only for the ten pilot stories; the rest are Farsi only (leave out `en`).
 
 ## Adding a story
 
 1. Fetch and read the source passages; add any new ayat to the ayat JSON and rerun the tool.
 2. Write `content/stories/NNN.js` (copy an existing one).
-3. Add the story to `READY` in `tools/build_catalog.py` and to the list in `sw.js`, then run `python3 tools/build_catalog.py`.
+3. Add the story to `READY` in `tools/build_catalog.py`, then run `python3 tools/build_catalog.py` (it also updates the offline list in `sw.js`). Raise `CACHE` in `sw.js`.
 
 ## Deploying
 

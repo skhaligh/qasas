@@ -4,5 +4,5 @@
 import { SCENES, scene } from './js/art/scenes.js';
 const q = new URLSearchParams(location.search), pre = q.get('p') || '', g = document.getElementById('g');
 g.style.setProperty('--c', q.get('c') || 4);
-try { Object.keys(SCENES).filter(k => k.startsWith(pre)).forEach(k => { const f = document.createElement('figure'); f.innerHTML = scene(k, q.get('move') ? '' : 'still') + `<figcaption>${k}</figcaption>`; g.appendChild(f); }); document.title = 'ok ' + g.children.length; } catch (e) { document.body.textContent = 'ERR ' + e.stack; }
+try { Object.keys(SCENES).filter(k => pre.split(',').some(p => k.startsWith(p))).forEach(k => { const f = document.createElement('figure'); f.innerHTML = scene(k, q.get('move') ? '' : 'still') + `<figcaption>${k}</figcaption>`; g.appendChild(f); }); document.title = 'ok ' + g.children.length; } catch (e) { document.body.textContent = 'ERR ' + e.stack; }
 </script></body></html>

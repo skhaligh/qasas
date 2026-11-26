@@ -7,12 +7,12 @@ export default {
   prep: {
     fa: {
       gist: 'امام سجاد (ع) شب‌ها با صورت پوشیده برای فقیران مدینه غذا می‌برد. مردم تا وقتی او زنده بود نفهمیدند آن مرد کیست.',
-      words: [['امام سجاد', 'علی پسر حسین (ع)، امام چهارم؛ به او «زین‌العابدین» هم می‌گویند'], ['صدقه', 'چیزی که برای خدا به نیازمند می‌دهیم'], ['توشه', 'چیزی که مسافر برای راه برمی‌دارد']],
+      words: [['امام سجاد', 'پسر امام حسین (ع) و امام چهارم؛ به او «زین‌العابدین» هم می‌گویند'], ['صدقه', 'چیزی که برای خدا به نیازمند می‌دهیم'], ['توشه', 'چیزی که مسافر برای راه برمی‌دارد']],
       care: 'قصه با درگذشت امام (ع) تمام می‌شود و خیلی کوتاه به «سفر آخرت» اشاره می‌کند. آرام بخوانید.',
     },
     en: {
       gist: 'By night, with his face covered, Imam Sajjad carries food to the poor of Madina. As long as he lived, the people never learned who the man was.',
-      words: [['Imam Sajjad', 'Ali son of Husayn, the fourth Imam; also called Zayn al-ʿAbidin'], ['charity', 'what we give to someone in need, for God’s sake'], ['provisions', 'what a traveller packs for the road']],
+      words: [['Imam Sajjad', 'the son of Imam Husayn and the fourth Imam; also called Zayn al-ʿAbidin'], ['charity', 'what we give to someone in need, for God’s sake'], ['provisions', 'what a traveller packs for the road']],
       care: 'The story ends with the Imam’s passing and touches briefly on “the journey to the next life.” Read gently.',
     },
   },
@@ -24,10 +24,10 @@ export default {
     list: [
       { id: 'r1', ref: { fa: 'خصال (شیخ صدوق) ۲/۵۱۷، از امام باقر (ع)', en: 'al-Saduq, al-Khisal 2/517, from Imam al-Baqir' },
         ar: 'وَ كَانَ ع لَيَخْرُجُ فِي اللَّيْلَةِ الظَّلْمَاءِ فَيَحْمِلُ الْجِرَابَ عَلَى ظَهْرِهِ وَ فِيهِ الصُّرَرُ مِنَ الدَّنَانِيرِ وَ الدَّرَاهِمِ وَ رُبَّمَا حَمَلَ عَلَى ظَهْرِهِ الطَّعَامَ أَوِ الْحَطَبَ حَتَّى يَأْتِيَ بَاباً بَاباً فَيَقْرَعُهُ ثُمَّ يُنَاوِلُ مَنْ يَخْرُجُ إِلَيْهِ وَ كَانَ يُغَطِّي وَجْهَهُ إِذَا نَاوَلَ فَقِيراً لِئَلَّا يَعْرِفَهُ فَلَمَّا تُوُفِّيَ ع فَقَدُوا ذَلِكَ فَعَلِمُوا أَنَّهُ كَانَ عَلِيَّ بْنَ الْحُسَيْنِ ع وَ لَمَّا وُضِعَ ع عَلَى الْمُغْتَسَلِ نَظَرُوا إِلَى ظَهْرِهِ وَ عَلَيْهِ مِثْلُ رُكَبِ الْإِبِلِ مِمَّا كَانَ يَحْمِلُ عَلَى ظَهْرِهِ إِلَى مَنَازِلِ الْفُقَرَاءِ وَ الْمَسَاكِينِ',
-        gloss: { fa: 'در شب تاریک بیرون می‌رفت و کیسهٔ چرمی را بر پشت می‌گرفت؛ در آن کیسه‌های دینار و درهم بود، و گاهی غذا یا هیزم بر پشت می‌برد. درِ خانه‌ها را یکی‌یکی می‌زد و به هر که بیرون می‌آمد می‌داد. صورتش را می‌پوشاند تا فقیر او را نشناسد. وقتی درگذشت، آن کمک‌ها قطع شد و فهمیدند او علی بن الحسین بوده است. هنگام غسل، بر پشتش نشانه‌هایی دیدند… از آنچه برای فقیران بر پشت می‌برد.', en: 'He would go out on a dark night with the leather sack on his back, holding purses of dinars and dirhams, and sometimes he carried food or firewood. He went from door to door, knocked, and gave to whoever came out. He covered his face so that the poor man would not know him. When he died, they missed it, and knew it had been Ali son of Husayn. When he was laid out for washing, they saw marks on his back… from what he carried to the homes of the poor.' } },
+        gloss: { fa: 'در شب تاریک بیرون می‌رفت و کیسهٔ چرمی را بر پشت می‌گرفت؛ در آن کیسه‌های دینار و درهم بود، و گاهی غذا یا هیزم بر پشت می‌برد. درِ خانه‌ها را یکی‌یکی می‌زد و به هر که بیرون می‌آمد می‌داد. صورتش را می‌پوشاند تا فقیر او را نشناسد. وقتی درگذشت، آن کمک‌ها قطع شد و فهمیدند او امام علی (ع) بن الحسین بوده است. هنگام غسل، بر پشتش نشانه‌هایی دیدند… از آنچه برای فقیران بر پشت می‌برد.', en: 'He would go out on a dark night with the leather sack on his back, holding purses of dinars and dirhams, and sometimes he carried food or firewood. He went from door to door, knocked, and gave to whoever came out. He covered his face so that the poor man would not know him. When he died, they missed it, and knew it had been Imam Ali son of Husayn. When he was laid out for washing, they saw marks on his back… from what he carried to the homes of the poor.' } },
       { id: 'r2', ref: { fa: 'حلیةالاولیاء (ابونعیم) ۳/۱۳۵–۱۳۶، از ابوحمزهٔ ثمالی', en: 'Abu Nuʿaym, Hilyat al-Awliyaʾ 3/135–136, from Abu Hamza al-Thumali' },
         ar: 'كَانَ عَلِيُّ بْنُ الْحُسَيْنِ يَحْمِلُ جِرَابَ الْخُبْزِ عَلَى ظَهْرِهِ بِاللَّيْلِ فَيتَصَدَّقُ بِهِ وَيَقُولُ: «إِنَّ صَدَقَةَ السِّرِّ تُطْفِئُ غَضَبَ الرَّبِّ عَزَّ وَجَلَّ»',
-        gloss: { fa: 'علی بن الحسین شب‌ها کیسهٔ نان را بر پشت می‌برد و صدقه می‌داد و می‌گفت: «صدقهٔ پنهانی خشم پروردگار را خاموش می‌کند.» (در همین کتاب و در خصال آمده که صد خانواده را در مدینه غذا می‌داد.)', en: 'Ali son of Husayn used to carry the sack of bread on his back at night and give it in charity, saying: “Charity given in secret puts out the anger of the Lord.” (The same book, and the Khisal, say he fed a hundred households in Madina.)' } },
+        gloss: { fa: 'امام سجاد (ع) شب‌ها کیسهٔ نان را بر پشت می‌برد و صدقه می‌داد و می‌گفت: «صدقهٔ پنهانی خشم پروردگار را خاموش می‌کند.» (در همین کتاب و در خصال آمده که صد خانواده را در مدینه غذا می‌داد.)', en: 'Imam Sajjad used to carry the sack of bread on his back at night and give it in charity, saying: “Charity given in secret puts out the anger of the Lord.” (The same book, and the Khisal, say he fed a hundred households in Madina.)' } },
       { id: 'r3', ref: { fa: 'علل‌الشرایع (شیخ صدوق) ۱/۲۳۱، گزارش زُهری', en: 'al-Saduq, ʿIlal al-Sharaʾiʿ 1/231, al-Zuhri’s report' },
         ar: 'رَأَى الزُّهْرِيُّ عَلِيَّ بْنَ الْحُسَيْنِ لَيْلَةً بَارِدَةً مَطِيرَةً وَ عَلَى ظَهْرِهِ دَقِيقٌ وَ حَطَبٌ وَ هُوَ يَمْشِي فَقَالَ لَهُ يَا ابْنَ رَسُولِ اللَّهِ مَا هَذَا قَالَ أُرِيدُ سَفَراً أُعِدُّ لَهُ زَاداً أَحْمِلُهُ إِلَى مَوْضِعٍ حَرِيزٍ فَقَالَ الزُّهْرِيُّ فَهَذَا غُلَامِي يَحْمِلُهُ عَنْكَ فَأَبَى',
         gloss: { fa: 'زهری در شبی سرد و بارانی او را دید که آرد و هیزم بر پشت داشت. پرسید: «ای پسر پیامبر، این چیست؟» فرمود: «سفری در پیش دارم و برایش توشه آماده می‌کنم.» زهری گفت خدمتکارش ببرد؛ نپذیرفت… چند روز بعد فرمود آن سفر «مرگ» است، و آمادگی برای آن دوری از حرام و بخشش و کار خیر است.', en: 'On a cold, rainy night al-Zuhri saw him walking with flour and firewood on his back. He asked, “Son of the Messenger of God, what is this?” He said, “I have a journey ahead and am preparing provisions for it.” Zuhri offered his servant to carry it; he refused… Days later he explained that the journey was death, and that preparing for it means avoiding what is forbidden, and giving generously.' } },
@@ -63,13 +63,13 @@ export default {
       ] },
     { art: 'saj3', amb: 'rain', refs: ['r3'],
       fa: [
-        `یک شبِ سرد و بارانی، مردی به نام زُهری او را دید و شناخت. او علی پسر حسین (ع) بود؛ امام سجاد.`,
+        `یک شبِ سرد و بارانی، مردی به نام زُهری او را دید و شناخت. او امام سجاد (ع) بود؛ پسر امام حسین (ع).`,
         `آرد و هیزم روی پشتش بود. زهری گفت: «ای پسر پیامبر! این چیست؟ بگذار خدمتکارم برایت بیاورد.»`,
         `امام قبول نکرد. فرمود: {{سفری در پیش دارم و برایش توشه آماده می‌کنم.}}`,
         `چند روز بعد زهری پرسید: «پس آن سفر چه شد؟» امام فرمود منظورش سفرِ آخرت بود؛ و توشهٔ آن سفر، دوری از کار بد و بخشیدن و کار خوب است.`,
       ],
       en: [
-        `One cold and rainy night, a man named Zuhri saw him and knew him. He was Ali son of Husayn, peace be upon him: Imam Sajjad.`,
+        `One cold and rainy night, a man named Zuhri saw him and knew him. He was Imam Sajjad, peace be upon him, the son of Imam Husayn.`,
         `Flour and firewood were on his back. Zuhri said, “Son of the Prophet! What is this? Let my servant carry it for you.”`,
         `The Imam would not accept. He said: {{I have a journey ahead of me, and I am preparing provisions for it.}}`,
         `A few days later Zuhri asked, “What became of that journey?” The Imam said he had meant the journey to the next life; and the provisions for that journey are keeping away from wrong, giving, and doing good.`,

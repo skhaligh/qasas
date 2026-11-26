@@ -1,0 +1,243 @@
+// Pictures for the second batch of stories. Same rule as lib.js:
+// places, objects, animals and nature only; nothing the sources do not support.
+import * as L from './lib.js';
+const { P } = L;
+
+export default function add(S, H) {
+  const { R, E, Pth, floor, woodPile, ridgeArmy, toys, room, windowArch, lane, laneDoors, stones, idolBits } = H;
+  const G = (x, y, s, inner, flip = false) => `<g transform="translate(${x} ${y}) scale(${flip ? -s : s} ${s})">${inner}</g>`;
+
+  // ---------- shared pieces ----------
+  const sheep = (x, y, s = 1, flip = false, wool = '#f4f1ea') => G(x, y, s, `<rect x="-16" y="-14" width="5" height="16" fill="#3a3436"/><rect x="10" y="-14" width="5" height="16" fill="#3a3436"/><ellipse cx="0" cy="-24" rx="26" ry="16" fill="${wool}"/><circle cx="-16" cy="-30" r="10" fill="${wool}"/><circle cx="2" cy="-36" r="11" fill="${wool}"/><circle cx="16" cy="-28" r="10" fill="${wool}"/><ellipse cx="29" cy="-30" rx="9" ry="7" fill="#3a3436"/><ellipse cx="24" cy="-37" rx="4" ry="2.5" fill="#3a3436"/>`, flip);
+  const goat = (x, y, s = 1, flip = false) => G(x, y, s, `<g fill="#7a5a44"><rect x="-18" y="-20" width="5" height="22"/><rect x="-8" y="-20" width="5" height="22"/><rect x="10" y="-20" width="5" height="22"/><rect x="18" y="-20" width="5" height="22"/><ellipse cx="2" cy="-30" rx="28" ry="14"/><path d="M22 -36 L36 -56 L46 -50 L34 -28Z"/><ellipse cx="44" cy="-56" rx="11" ry="7"/><path d="M42 -50 l2 12 l4 -11Z"/><path d="M-26 -34 l-8 -8 l4 12Z"/></g><path d="M40 -62 q-6 -14 -16 -14 M46 -62 q-2 -14 -10 -18" stroke="#3a2a20" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="48" cy="-58" r="1.8" fill="#1a1410"/><ellipse cx="-2" cy="-17" rx="7" ry="5" fill="#e8c9b0"/>`, flip);
+  const hoopoe = (x, y, s = 1, flip = false) => G(x, y, s, `<path d="M-46 4 L-80 -6 L-76 14 L-46 12Z" fill="#2a2420"/><path d="M-70 -2 l8 14 M-60 0 l8 12" stroke="#f4f1ea" stroke-width="3"/><ellipse cx="-14" cy="6" rx="36" ry="16" fill="#d98a4e"/><g class="flap"><path d="M-30 2 Q-14 -66 30 -44 Q10 -20 6 4Z" fill="#2a2420"/><path d="M-16 -20 Q0 -40 20 -34 M-22 -6 Q-2 -26 14 -22" stroke="#f4f1ea" stroke-width="4" fill="none"/></g><circle cx="24" cy="-6" r="13" fill="#e09a5c"/><path d="M34 -8 L68 0 L34 0Z" fill="#3a2a20"/><circle cx="28" cy="-9" r="2.2" fill="#1a1410"/>${[-52, -34, -16, 2, 20].map((a) => `<g transform="rotate(${a} 22 -12)"><path d="M22 -12 L18 -44 L26 -44Z" fill="#e09a5c"/><circle cx="22" cy="-45" r="4" fill="#2a2420"/></g>`).join('')}`, flip);
+  const dog = (x, y, s = 1, flip = false, c = '#c9a06a') => G(x, y, s, `<ellipse cx="-10" cy="-14" rx="40" ry="15" fill="${c}"/><path d="M-46 -16 q-22 -6 -20 12 q8 -8 20 -2Z" fill="${c}"/><rect x="18" y="-10" width="46" height="9" rx="4.5" fill="${c}"/><rect x="14" y="-3" width="44" height="8" rx="4" fill="#b98d58"/><circle cx="34" cy="-28" r="14" fill="${c}"/><path d="M24 -38 l-6 -14 l14 6Z M38 -40 l4 -14 l8 12Z" fill="#8a6a44"/><ellipse cx="46" cy="-23" rx="9" ry="6" fill="#b98d58"/><circle cx="53" cy="-25" r="2.5" fill="${P.ink}"/><path d="M32 -31 q4 3 8 0" stroke="${P.ink}" stroke-width="1.6" fill="none"/>`, flip);
+  const tree = (x, y, s = 1, leaf = P.leaf2, fruit = '#d4472a', seed = 1) => { const r = L.rng(seed); let f = ''; if (fruit) for (let i = 0; i < 8; i++) f += `<circle cx="${Math.round((r() - 0.5) * 76)}" cy="${Math.round(-74 - r() * 50)}" r="5.5" fill="${fruit}"/>`; return G(x, y, s, `<path d="M-6 0 L-4 -60 L4 -60 L6 0Z" fill="${P.wood3}"/><circle cx="-22" cy="-84" r="28" fill="${leaf}"/><circle cx="22" cy="-84" r="28" fill="${leaf}"/><circle cx="0" cy="-108" r="30" fill="${leaf}"/><circle cx="0" cy="-76" r="26" fill="${leaf}"/>${f}`); };
+  const burnt = (x, y, s = 1) => G(x, y, s, `<g stroke="#17131a" stroke-linecap="round" fill="none"><path d="M0 0 L0 -70" stroke-width="9"/><path d="M0 -50 L-30 -92 M0 -60 L28 -100 M0 -70 L-6 -118 M-18 -74 L-40 -78 M16 -82 L40 -80" stroke-width="5"/></g>`);
+  const idol = (x, y, s = 1, c = ['#6d6672', '#8b8490', '#9a939f']) => G(x, y, s, `<rect x="-30" y="-16" width="60" height="16" fill="${c[0]}"/><path d="M-20 -16 L-16 -96 Q0 -110 16 -96 L20 -16Z" fill="${c[1]}"/><rect x="-14" y="-126" width="28" height="30" rx="6" fill="${c[2]}"/><rect x="-8" y="-116" width="5" height="3" fill="#4b4552"/><rect x="3" y="-116" width="5" height="3" fill="#4b4552"/>`);
+  const temple = () => L.sky('room') + floor(400, '#3b2a22') + [70, 230, 570, 730].map((x) => R(x - 18, 60, 36, 350, '#5d4a40') + R(x - 28, 50, 56, 16, '#75604f') + R(x - 28, 400, 56, 14, '#75604f')).join('');
+  const kaaba = (x, y, w, h, full = true) => {
+    let s = R(x - w / 2, y - h, w, h, '#8f857c'); const rows = Math.max(1, Math.round(h / 22)), rh = h / rows;
+    for (let i = 0; i < rows; i++) { const yy = y - (i + 1) * rh; s += `<line x1="${x - w / 2}" y1="${yy}" x2="${x + w / 2}" y2="${yy}" stroke="#6a6058" stroke-width="2"/>`; for (let j = (i % 2 ? 0.5 : 1); j < 6; j++) s += `<line x1="${x - w / 2 + j * (w / 6)}" y1="${yy}" x2="${x - w / 2 + j * (w / 6)}" y2="${yy + rh}" stroke="#6a6058" stroke-width="2"/>`; }
+    if (full) s += R(x - w / 2 - 4, y - h - 6, w + 8, 8, '#6a6058') + R(x + w * 0.12, y - h * 0.5, w * 0.2, h * 0.5, '#2a221c');
+    return s;
+  };
+  const rocks = (pts, fill = '#8f857c') => pts.map(([x, y, r = 16]) => E(x, y, r, r * 0.6, fill)).join('');
+  const chest = (x, y, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})"><g class="bob"><rect x="-44" y="-34" width="88" height="34" rx="4" fill="${P.wood2}"/><path d="M-44 -34 Q0 -58 44 -34Z" fill="${P.wood1}"/><rect x="-44" y="-22" width="88" height="5" fill="${P.wood4}"/><rect x="-6" y="-30" width="12" height="14" rx="2" fill="${P.gold}"/></g></g>`;
+  const well = (x, y, s = 1) => G(x, y, s, `<rect x="-58" y="-150" width="8" height="150" fill="${P.wood3}"/><rect x="50" y="-150" width="8" height="150" fill="${P.wood3}"/><rect x="-66" y="-156" width="132" height="10" rx="4" fill="${P.wood4}"/><line x1="0" y1="-146" x2="0" y2="-70" stroke="#d8c8a0" stroke-width="3"/><path d="M-14 -70 L14 -70 L10 -44 L-10 -44Z" fill="${P.wood2}"/><ellipse cx="0" cy="-4" rx="70" ry="18" fill="#7d7a80"/><rect x="-70" y="-40" width="140" height="36" fill="#9c999f"/><ellipse cx="0" cy="-40" rx="70" ry="18" fill="#bdbac0"/><ellipse cx="0" cy="-40" rx="54" ry="12" fill="${P.sea3}"/>`);
+  const trough = (x, y, s = 1) => G(x, y, s, `<path d="M-80 -22 L80 -22 L70 0 L-70 0Z" fill="#9c999f"/><path d="M-76 -22 L76 -22 L72 -13 L-72 -13Z" fill="${P.sea1}"/>`);
+  const throne = (x, y, s = 1) => G(x, y, s, `<rect x="-90" y="-20" width="180" height="20" fill="#8a6a2a"/><rect x="-70" y="-40" width="140" height="20" fill="#a9822f"/><rect x="-44" y="-170" width="88" height="130" rx="8" fill="${P.gold}"/><path d="M-44 -166 Q0 -214 44 -166Z" fill="#f0c868"/><rect x="-52" y="-100" width="104" height="60" rx="6" fill="${P.terra}"/><rect x="-62" y="-110" width="16" height="70" rx="5" fill="#a9822f"/><rect x="46" y="-110" width="16" height="70" rx="5" fill="#a9822f"/><circle cx="0" cy="-150" r="9" fill="${P.sea1}"/>`);
+  const scroll = (x, y, s = 1, rot = 0) => `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})"><rect x="-40" y="-9" width="80" height="18" rx="9" fill="#f1e2c0"/><circle cx="-40" cy="0" r="10" fill="#e3cf9f"/><circle cx="40" cy="0" r="10" fill="#e3cf9f"/><rect x="-5" y="-11" width="10" height="22" fill="${P.terra}"/></g>`;
+  const tray = (x, y, s = 1) => G(x, y, s, `<ellipse cx="0" cy="0" rx="90" ry="20" fill="#b98d3a"/><ellipse cx="0" cy="-5" rx="80" ry="15" fill="${P.gold}"/>` + [[-44, -18, '#d4472a'], [-18, -24, '#f0a030'], [8, -20, '#7a3d8a'], [34, -22, '#d4472a'], [-30, -40, '#8fb548'], [-4, -44, '#f0c040'], [22, -42, '#f08a3c'], [-10, -62, '#d4472a']].map(([cx, cy, c]) => `<circle cx="${cx}" cy="${cy}" r="14" fill="${c}"/><path d="M${cx} ${cy - 13} q3 -7 8 -7" stroke="${P.leaf3}" stroke-width="2.5" fill="none"/>`).join(''));
+  const niche = (x, y, w = 200, h = 300, fill = '#3b2a22') => `<path d="M${x - w / 2 - 14} ${y} v${-h + w / 2} a${w / 2 + 14} ${w / 2 + 14} 0 0 1 ${w + 28} 0 v${h - w / 2}Z" fill="${P.clay4}"/><path d="M${x - w / 2} ${y} v${-h + w / 2} a${w / 2} ${w / 2} 0 0 1 ${w} 0 v${h - w / 2}Z" fill="${fill}"/>`;
+  const mat = (x, y, w = 200, c = '#2f6f8b') => `<path d="M${x - w / 2} ${y} L${x - w / 2 + 30} ${y - 46} L${x + w / 2 - 30} ${y - 46} L${x + w / 2} ${y}Z" fill="${c}"/><path d="M${x - w / 2 + 16} ${y - 8} L${x - w / 2 + 38} ${y - 40} L${x + w / 2 - 38} ${y - 40} L${x + w / 2 - 16} ${y - 8}Z" fill="none" stroke="${P.gold}" stroke-width="2.5"/>`;
+  const hangLamp = (x, y, len = 70) => `<line x1="${x}" y1="${y - len}" x2="${x}" y2="${y}" stroke="${P.gold}" stroke-width="2"/>` + L.glow(x, y + 14, 80, '#ffcf6b', 0.5) + `<path d="M${x - 12} ${y} h24 l-4 22 h-16Z" fill="${P.gold}"/><ellipse cx="${x}" cy="${y + 12}" rx="6" ry="8" fill="#fff0b8"/>`;
+  const pcol = (x, top, bottom) => R(x - 11, top, 22, bottom - top, P.wood3) + [0, 1, 2, 3, 4, 5, 6, 7].map((i) => `<path d="M${x - 11} ${top + 14 + i * ((bottom - top) / 8)} l11 8 l11 -8" stroke="${P.wood4}" stroke-width="2.5" fill="none"/>`).join('');
+  const fronds = (x0, x1, y, fill = P.leaf3) => { let s = ''; for (let x = x0; x < x1; x += 80) s += Pth(`M${x} ${y} q40 28 80 0Z`, fill); return s; };
+  const openDoor = (x, y, w, h, kind = 'day') => { const c = { day: ['#86c5d8', '#f7e8c6'], dawn: ['#c96f6e', '#f6c98a'] }[kind], i = L.uid('od'), r = w / 2; return `<defs><linearGradient id="${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[0]}"/><stop offset="1" stop-color="${c[1]}"/></linearGradient></defs><path d="M${x - r - 16} ${y} v${-h + r - 8} a${r + 16} ${r + 16} 0 0 1 ${w + 32} 0 v${h - r + 8}Z" fill="${P.clay4}"/><path d="M${x - r} ${y} v${-h + r} a${r} ${r} 0 0 1 ${w} 0 v${h - r}Z" fill="url(#${i})"/>`; };
+  const smallDoor = (x, y, w, h) => `<path d="M${x - w / 2 - 6} ${y} v${-h + w / 2} a${w / 2 + 6} ${w / 2 + 6} 0 0 1 ${w + 12} 0 v${h - w / 2}Z" fill="${P.clay4}"/><path d="M${x - w / 2} ${y} v${-h + w / 2} a${w / 2} ${w / 2} 0 0 1 ${w} 0 v${h - w / 2}Z" fill="${P.wood3}"/><circle cx="${x + w * 0.22}" cy="${y - h * 0.4}" r="4" fill="${P.gold}"/>`;
+  const coin = (x, y, gold = true) => E(x, y, 17, 7, gold ? '#b98d3a' : '#9aa0aa') + E(x, y - 3, 17, 7, gold ? P.gold : '#d9dce2');
+  const bits = (pts) => pts.map(([x, y, r = 0]) => `<path transform="rotate(${r} ${x} ${y})" d="M${x - 20} ${y} q8 -14 22 -10 q14 2 16 10 q-18 6 -38 0Z" fill="#d9a55c"/><path transform="rotate(${r} ${x} ${y})" d="M${x - 14} ${y - 2} q8 -8 18 -6" stroke="#e9c07c" stroke-width="3" fill="none"/>`).join('');
+  const palace = (x, y, w, h, wall = '#f1dfbd', cols = 5) => { let s = R(x - w / 2, y - h, w, h, wall) + R(x - w / 2 - 10, y - h - 14, w + 20, 16, '#b98d3a'); for (let i = 0; i < cols; i++) { const cx = x - w / 2 + (w / cols) * (i + 0.5); s += R(cx - 9, y - h + 8, 18, h - 8, '#fbf3df') + R(cx - 13, y - h + 2, 26, 8, '#d6ac7c'); } return s; };
+
+  // ---------- 7. Ibrahim and the stars ----------
+  const nightHills = () => L.peaks(360, '#141838', 3, 5, 70) + L.land(400, '#1b1838', 4, 20) + L.palm(120, 424, 120, 8, '#0d0f24', '#0d0f24') + L.palm(700, 432, 100, -8, '#0d0f24', '#0d0f24') + L.land(455, '#0f1230', 6, 12);
+  S.str1 = () => L.sky('night') + L.stars(71, 36, 300) + L.glow(520, 130, 100, '#fff6d8', 0.7) + `<path class="tw" d="M520 92 L529 121 L558 130 L529 139 L520 168 L511 139 L482 130 L511 121Z" fill="#fff6d8"/>` + nightHills();
+  S.str2 = () => L.sky('night') + L.stars(72, 44, 240) + L.moon(400, 240, 74, false) + nightHills();
+  S.str3 = () => L.sky('dawn') + L.sun(400, 300, 84) + L.peaks(360, '#5a3f72', 3, 5, 70) + L.land(400, '#8a5a6a', 4, 20) + L.palm(120, 424, 120, 8, '#3a2444', '#3a2444') + L.palm(700, 432, 100, -8, '#3a2444', '#3a2444') + L.land(455, '#6a4458', 6, 12) + L.flock(300, 130, 5, 6, 120, 1.1);
+  S.str4 = () => L.sky('dusk') + L.stars(74, 16, 170) + L.land(330, '#6b5178', 3, 30) + L.land(390, '#5a4470', 5, 22)
+    + Pth('M330 500 Q420 440 380 404 Q350 376 430 352 L446 354 Q400 382 430 406 Q490 446 450 500Z', '#a98ab0', 'opacity=".55"') + L.palm(660, 400, 110, -8, '#2a1f44', '#2a1f44') + L.land(456, '#3a2a55', 9, 12);
+
+  // ---------- 8. Ibrahim and the idols ----------
+  S.idl1 = () => temple() + Pth('M330 0 L470 0 L560 500 L240 500Z', '#f3d9a0', 'opacity=".12"') + idol(150, 430, 1.2) + idol(290, 446, 1) + idol(520, 446, 1) + idol(650, 430, 1.2) + idol(400, 442, 2.1);
+  S.idl2 = () => L.sky('day') + L.sun(660, 90, 36) + L.cloud(200, 90, 1) + L.town(320, 81, 8, [P.clay1, P.clay2, '#eedcb8'], 0, 0, 800, 40, 80)
+    + palace(400, 322, 220, 140, '#b9a48a', 4) + Pth('M378 322 v-50 a22 22 0 0 1 44 0 v50Z', '#2a1d18') + L.land(324, P.sand1, 3, 6)
+    + Pth('M290 500 L380 324 L420 324 L510 500Z', '#f3e3bb') + L.steps(396, 480, 7, 3, -22, P.sand4, 1.4) + L.palm(110, 420, 140, 8) + L.palm(700, 426, 130, -8) + L.land(480, P.sand3, 9, 5);
+  S.idl3 = () => temple() + Pth('M300 0 L500 0 L620 500 L180 500Z', '#f3d9a0', 'opacity=".16"') + idolBits(150, 452, 1.4) + idolBits(650, 458, 1.5) + idolBits(300, 476, 0.9) + idol(400, 472, 3);
+
+  // ---------- 13. The House of God ----------
+  const valley = (far = P.rock1, near = P.rock2) => L.peaks(300, far, 3, 4, 160) + L.peaks(350, near, 7, 5, 100) + L.land(384, P.sand2, 4, 10);
+  S.kab1 = () => L.sky('day') + L.sun(650, 90, 36) + valley() + L.land(430, P.sand3, 6, 8) + kaaba(400, 436, 190, 22, false) + rocks([[200, 452], [240, 466, 12], [590, 456], [640, 470, 13], [140, 476, 10]]);
+  S.kab2 = () => L.sky('dawn') + L.sun(160, 250, 44) + valley('#7a6a90', '#5a4a72') + L.land(430, '#c9a070', 6, 8) + kaaba(400, 440, 200, 110, false) + rocks([[210, 458], [250, 470, 12], [180, 474, 14], [590, 460], [630, 474, 13], [560, 478, 11]]);
+  S.kab3 = () => L.sky('day') + L.sun(130, 90, 38) + L.cloud(600, 90, 1) + valley() + L.land(430, P.sand3, 6, 8) + kaaba(400, 440, 210, 220, true) + L.flock(580, 150, 6, 6, 90, 1);
+  S.kab4 = () => L.sky('noon') + L.sun(650, 80, 36) + L.peaks(280, P.rock1, 3, 5, 110) + L.land(300, P.sand1, 4, 8) + kaaba(400, 318, 76, 80, true)
+    + L.land(330, P.sand2, 5, 8) + Pth('M0 420 Q220 350 372 322 L380 330 Q230 370 0 470Z', '#f3e3bb') + Pth('M800 420 Q580 350 428 322 L420 330 Q570 370 800 470Z', '#f3e3bb') + Pth('M330 500 Q380 400 394 330 L406 330 Q420 400 470 500Z', '#f3e3bb')
+    + L.camel(130, 408, 0.6, P.rock3) + L.camel(210, 386, 0.5, P.rock4) + L.camel(280, 368, 0.42, P.rock3)
+    + G(670, 408, 0.6, L.camel(0, 0, 1, P.rock3), true) + G(590, 386, 0.5, L.camel(0, 0, 1, P.rock4), true)
+    + L.steps(398, 480, 6, 1, -22, P.sand4, 1.3) + L.land(486, P.sand3, 9, 4);
+
+  // ---------- 21. Musa: the chest on the water ----------
+  const bank = () => L.land(250, '#cfe0b0', 3, 12) + L.palm(100, 252, 110, 8) + L.palm(720, 254, 120, -8) + L.palm(650, 250, 80, 5);
+  const reedsFront = () => L.grass(20, 500, 9, 130, 3, P.leaf3) + L.grass(690, 500, 9, 150, 5, P.leaf2) + L.grass(120, 500, 5, 80, 8, P.leaf1);
+  S.mus1 = () => L.sky('day') + L.sun(120, 90, 36) + L.cloud(560, 80, 1.1) + L.land(300, '#cfe0b0', 3, 14) + L.palm(620, 302, 120, -8) + L.palm(690, 306, 90, 6)
+    + L.house(170, 302, 160, 96, P.clay1, { win: true }) + L.sea(312, [P.sea1, P.sea2, P.sea3], 4, 120, 56) + reedsFront();
+  S.mus2 = () => L.sky('day') + L.cloud(220, 80, 1.1) + bank() + L.sea(262, [P.sea1], 5, 130, 0) + chest(400, 344, 1.5) + L.sea(340, [P.sea2, P.sea3], 5, 120, 62) + reedsFront();
+  S.mus3 = () => L.sky('day') + L.sun(660, 90, 36) + palace(330, 300, 460, 200, '#ead2aa', 6) + R(240, 300, 180, 12, '#d0bfa6') + R(220, 312, 220, 12, '#bfae94')
+    + L.palm(680, 300, 150, -8) + L.palm(740, 304, 100, 6) + L.sea(322, [P.sea1], 4, 120, 0) + chest(600, 392, 1.1) + L.sea(388, [P.sea2, P.sea3], 5, 120, 56) + L.grass(20, 500, 8, 120, 3, P.leaf3);
+  S.mus4 = () => L.sky('night') + L.stars(91, 60, 260) + L.moon(650, 90, 28) + L.town(330, 92, 7, ['#2a2a55', '#232349'], 0.15, 0, 800, 40, 70) + L.land(334, '#262148', 3, 6)
+    + L.house(270, 432, 260, 150, '#3d396b', { win: true, lit: true, winAt: 0.75, doorAt: 0.35 }) + L.palm(620, 432, 160, -10, '#1a1838', '#1f3a36') + L.land(436, '#1b1838', 6, 6);
+
+  // ---------- 22. Musa at the water of Madyan ----------
+  S.mad1 = () => L.sky('noon') + L.sun(140, 90, 40) + L.land(300, '#e6cf9f', 3, 26) + L.town(306, 101, 4, [P.clay1, P.clay2], 0, 560, 760, 24, 44) + L.palm(540, 306, 60, 4) + L.palm(774, 308, 50, -4)
+    + L.land(350, P.sand2, 6, 20) + L.land(420, P.sand3, 9, 12) + L.steps(100, 472, 10, 46, -12, P.sand4, 1.3) + L.shrub(690, 446, 1.2, 3);
+  S.mad2 = () => L.sky('day') + L.sun(660, 90, 36) + L.land(290, '#e6cf9f', 3, 20) + L.land(350, P.sand2, 6, 12)
+    + sheep(690, 372, 0.7) + sheep(736, 384, 0.7, true) + sheep(650, 390, 0.65)
+    + well(360, 414, 1) + trough(520, 430, 1) + sheep(200, 420, 1) + sheep(250, 448, 0.95, false, '#e6e0d2') + sheep(130, 450, 0.9) + sheep(470, 462, 1, false, '#ece7dc') + sheep(590, 464, 1, true) + L.land(476, P.sand3, 9, 5);
+  S.mad3 = () => L.sky('day') + L.sun(660, 80, 34) + L.land(300, '#e6cf9f', 3, 20) + L.land(360, P.sand2, 6, 12) + E(300, 436, 190, 26, '#a9773f', 'opacity=".45"')
+    + tree(300, 430, 2.5, '#3d8262', null) + trough(590, 440, 1) + sheep(520, 462, 1) + sheep(650, 466, 1, true) + sheep(720, 450, 0.85, true, '#e6e0d2') + L.land(478, P.sand3, 9, 5);
+  S.mad4 = () => L.sky('dawn') + L.sun(620, 240, 44) + L.land(300, '#b98a7a', 3, 20) + L.house(250, 424, 320, 170, '#e3c29a', { win: true, winAt: 0.8, doorAt: 0.4 }) + L.palm(650, 424, 170, -10) + L.palm(190, 426, 120, 8)
+    + [70, 100, 130, 160, 190].map((x) => R(x, 400, 5, 40, P.wood3)).join('') + R(62, 410, 140, 5, P.wood2) + R(62, 426, 140, 5, P.wood2) + sheep(110, 452, 0.8) + sheep(160, 458, 0.7, true) + L.land(440, P.sand2, 6, 6);
+
+  // ---------- 25. Musa: a road through the sea ----------
+  S.bhr1 = () => L.sky('night') + L.stars(111, 70, 260) + L.moon(140, 90, 30) + L.town(300, 112, 9, ['#2a2a55', '#232349', '#30305e'], 0.3, 0, 800, 30, 60) + L.land(304, '#262148', 3, 8)
+    + L.land(360, '#2e2a52', 5, 24) + L.land(430, '#1b1838', 8, 14) + L.steps(100, 482, 13, 46, -9, '#6a66a0', 1.3) + L.steps(150, 446, 11, 44, -7, '#6a66a0', 1);
+  S.bhr2 = () => L.sky('dawn') + L.sun(400, 190, 56) + L.land(250, '#8a5a6a', 3, 20) + ridgeArmy(262, 5, 24, 0.9) + L.land(266, '#a0685a', 4, 10) + L.dust(250, 284, 1.3, '#e9c3a0', 0.5) + L.dust(560, 290, 1.4, '#e9c3a0', 0.5)
+    + L.land(330, '#c99560', 6, 10) + L.steps(300, 396, 6, 30, -8, '#8a563f', 1.2) + L.steps(430, 400, 5, 28, -8, '#8a563f', 1.1) + L.sea(412, [P.sea1, P.sea2, P.sea3], 6, 100, 30);
+  S.bhr3 = () => L.sky('day') + L.sun(400, 110, 44) + R(0, 300, 800, 200, P.sea3)
+    + Pth('M240 500 L384 300 L416 300 L560 500Z', '#e9d3a0') + Pth('M330 500 L392 300 L408 300 L470 500Z', '#f3e3bb', 'opacity=".6"')
+    + Pth('M0 500 L0 130 Q130 96 230 170 Q320 236 384 300 L240 500Z', P.sea1) + Pth('M240 500 L384 300 Q340 268 300 250 L130 500Z', P.sea3, 'opacity=".55"')
+    + Pth('M800 500 L800 130 Q670 96 570 170 Q480 236 416 300 L560 500Z', P.sea1) + Pth('M560 500 L416 300 Q460 268 500 250 L670 500Z', P.sea3, 'opacity=".55"')
+    + `<path d="M0 130 Q130 96 230 170 Q320 236 384 300 M800 130 Q670 96 570 170 Q480 236 416 300" stroke="#e8f6f8" stroke-width="7" fill="none" stroke-linecap="round"/>`
+    + [[90, 250], [150, 340], [60, 410], [710, 250], [650, 340], [740, 410]].map(([x, y], i) => `<path class="ripple" style="animation-delay:${i * 0.4}s" d="M${x - 24} ${y} q12 -8 24 0 q12 8 24 0" stroke="#d8f0f4" stroke-width="2.5" fill="none"/>`).join('')
+    + L.steps(398, 484, 5, 1, -30, P.sand4, 1.3);
+  S.bhr4 = () => L.sky('day') + L.sun(650, 90, 38) + L.cloud(200, 90, 1.1) + L.sea(230, [P.sea1, P.sea2], 5, 110, 40) + L.land(330, P.sand1, 4, 14) + L.land(400, P.sand2, 7, 10)
+    + L.steps(280, 472, 8, 34, -14, P.sand4, 1.3) + L.steps(400, 482, 7, 32, -13, P.sand4, 1.1) + L.palm(710, 404, 150, -10) + L.flock(400, 130, 7, 7, 120, 1.1);
+
+  // ---------- 30. Sulayman and the hoopoe ----------
+  const sulPalace = (x, y, s = 1) => G(x, y, s, L.house(-150, 0, 110, 90, P.clay1, { dome: true, domeFill: P.gold, win: true }) + L.house(-50, 0, 140, 140, '#f1dfbd', { dome: true, domeFill: P.gold, win: true, winAt: 0.25 }) + L.house(80, 0, 100, 80, P.clay1, { dome: true, domeFill: P.gold, win: true }));
+  S.hud1 = () => L.sky('day') + L.sun(120, 90, 36) + L.cloud(600, 80, 1) + L.land(330, '#a9c79a', 3, 30) + sulPalace(580, 332, 0.9) + L.land(396, P.leaf1, 6, 16)
+    + R(110, 372, 480, 8, P.wood3) + R(130, 372, 8, 110, P.wood4) + R(562, 372, 8, 110, P.wood4)
+    + L.dove(160, 354, 1) + L.dove(232, 354, 1, '#dfe3e7') + L.dove(304, 354, 1, '#c9b08a') + L.dove(452, 354, 1, '#dfe3e7', true) + L.dove(530, 354, 1, '#eef0f2', true)
+    + L.land(468, P.leaf2, 9, 8) + L.flock(300, 150, 11, 7, 130, 1.2);
+  S.hud2 = () => L.sky('day') + L.cloud(160, 110, 1.1) + L.cloud(640, 70, 0.9) + L.peaks(390, P.rock1, 4, 5, 70) + L.land(420, '#d8c39a', 3, 20) + L.land(460, P.sand2, 6, 12) + hoopoe(400, 240, 2.3);
+  S.hud3 = () => L.sky('noon') + L.sun(400, 104, 64, '#ffd24a') + L.land(330, '#d8c39a', 3, 16) + palace(400, 340, 420, 150, '#f1dfbd', 6) + L.palm(110, 344, 160, 10) + L.palm(700, 344, 160, -10)
+    + L.land(352, P.sand2, 5, 8) + throne(400, 452, 1.15) + L.land(476, P.sand3, 8, 5);
+  S.hud4 = () => L.sky('day') + L.cloud(620, 90, 1.1) + L.land(370, '#a9c79a', 3, 30) + sulPalace(180, 372, 0.7) + L.land(430, P.leaf1, 6, 16) + L.land(474, P.leaf2, 9, 8) + scroll(398, 292, 1, -8) + hoopoe(430, 220, 2);
+
+  // ---------- 34. Maryam and the fruit of the mihrab ----------
+  S.mry1 = () => L.sky('day') + L.sun(120, 90, 36) + L.cloud(580, 80, 1) + L.peaks(330, P.rock1, 5, 5, 60) + L.land(352, '#cdb98f', 3, 14)
+    + palace(400, 352, 300, 190, '#ead2aa', 4) + Pth('M372 352 v-70 a28 28 0 0 1 56 0 v70Z', '#3b2a22') + R(230, 352, 340, 12, '#d0bfa6') + R(210, 364, 380, 12, '#bfae94')
+    + L.land(380, P.sand2, 5, 8) + L.palm(100, 410, 140, 8) + L.palm(710, 414, 130, -8) + L.land(456, P.sand3, 8, 8);
+  const mihrab = () => room('#5a4636', '#3b2a22') + niche(400, 384, 230, 330, '#2c1f1a') + Pth('M226 60 Q262 200 240 384 L196 384 L196 60Z', '#7a3d4a') + Pth('M574 60 Q538 200 560 384 L604 384 L604 60Z', '#7a3d4a') + hangLamp(400, 150, 80);
+  S.mry2 = () => mihrab() + mat(400, 474, 280, '#2f6f8b');
+  S.mry3 = () => mihrab() + Pth('M360 60 L440 60 L520 384 L280 384Z', '#fff3c4', 'opacity=".12"') + mat(400, 474, 280, '#2f6f8b') + R(330, 410, 140, 10, P.wood2, 'rx="4"') + R(344, 420, 8, 26, P.wood3) + R(448, 420, 8, 26, P.wood3) + tray(400, 408, 1);
+
+  // ---------- 37. The Companions of the Cave ----------
+  S.khf1 = () => L.sky('day') + L.sun(660, 90, 36) + L.town(320, 131, 9, [P.clay1, P.clay2, '#eedcb8'], 0, 0, 800, 40, 80) + palace(400, 324, 200, 130, '#b9a48a', 4) + Pth('M374 324 v-56 a26 26 0 0 1 52 0 v56Z', '#2a1d18')
+    + L.land(326, P.sand1, 3, 6) + idol(250, 420, 1.4) + idol(550, 420, 1.4) + L.land(424, P.sand2, 5, 8) + L.land(472, P.sand3, 8, 6);
+  S.khf2 = () => L.sky('day') + L.cloud(150, 90, 1) + L.peaks(380, P.rock1, 5, 5, 90) + Pth('M120 500 L300 180 L380 110 L470 150 L560 260 L700 500Z', P.rock2) + Pth('M380 110 L470 150 L560 260 L460 230 L400 180Z', P.rock1)
+    + E(420, 206, 34, 26, '#1a1420') + Pth('M388 208 q32 -40 66 0Z', '#1a1420')
+    + `<path d="M250 500 Q330 430 300 380 Q280 340 360 300 Q410 270 404 232" stroke="#e6d6c0" stroke-width="5" fill="none" stroke-dasharray="3 12" stroke-linecap="round" opacity=".8"/>`
+    + L.land(472, P.rock3, 6, 10) + L.shrub(640, 462, 1.2, 3, '#2a1f38') + L.shrub(130, 470, 1, 5, '#2a1f38');
+  S.khf3 = () => L.sky('day') + L.sun(470, 170, 40) + L.cloud(330, 150, 0.8) + L.land(340, '#b9c79a', 6, 20) + L.land(400, '#8fa878', 3, 10)
+    + Pth('M0 0 H800 V500 H0Z M400 80 C560 70 660 190 640 330 C630 410 540 440 400 440 C260 440 170 410 160 330 C140 190 240 70 400 80Z', '#17131f', 'fill-rule="evenodd"')
+    + Pth('M0 0 H800 V500 H0Z M400 50 C590 40 700 180 680 340 C668 440 560 470 400 470 C240 470 132 440 120 340 C100 180 210 40 400 50Z', '#231d2e', 'fill-rule="evenodd"')
+    + Pth('M330 96 L520 84 L700 500 L470 500Z', '#fff3c4', 'opacity=".08"') + dog(390, 452, 1.7);
+  S.khf4 = () => L.sky('dawn') + L.sun(560, 250, 50) + L.peaks(330, '#5a3f72', 2, 4, 80) + Pth('M0 500 L0 240 L120 150 L230 220 L300 330 L340 500Z', '#4a3a66') + Pth('M120 150 L230 220 L300 330 L220 300 L150 230Z', '#5a4a78') + E(150, 262, 28, 22, '#1a1420')
+    + L.town(352, 141, 6, ['#c79a80', '#b98a7a', '#d6ac8c'], 0, 390, 800, 36, 70) + L.land(356, '#c99560', 3, 8) + L.land(424, '#b07e48', 6, 10) + L.flock(480, 140, 9, 7, 120, 1.1);
+
+  // ---------- 38. The owners of the garden ----------
+  const rowX = [[80, 200, 320, 440, 560, 680], [140, 290, 440, 590, 730]];
+  S.bgh1 = () => L.sky('day') + L.sun(120, 90, 36) + L.cloud(580, 80, 1.1) + L.land(300, '#a9c79a', 3, 20) + rowX[0].map((x) => tree(x, 336, 0.9, P.leaf3, '#f08a3c', x)).join('') + L.land(346, P.leaf1, 5, 10)
+    + rowX[1].map((x) => tree(x, 440, 1.45, P.leaf2, '#d4472a', x + 1)).join('') + L.land(448, P.leaf2, 8, 8) + L.flock(420, 110, 3, 5, 100, 1);
+  S.bgh2 = () => L.sky('night') + L.stars(151, 30, 160) + L.land(300, '#1a2a2a', 3, 20) + rowX[0].map((x) => tree(x, 336, 0.9, '#16302a', null)).join('') + L.land(346, '#14262a', 5, 10)
+    + rowX[1].map((x) => tree(x, 440, 1.45, '#1c3a32', null)).join('') + L.land(448, '#102024', 8, 8)
+    + L.cloud(400, 150, 2.8, '#0a0810', 0.92) + L.cloud(180, 200, 1.9, '#141018', 0.88) + L.cloud(640, 210, 2, '#141018', 0.88);
+  S.bgh3 = () => L.sky('storm') + L.land(300, '#4a4d55', 3, 20) + rowX[0].map((x) => burnt(x, 336, 0.9)).join('') + L.land(346, '#3a3c44', 5, 10) + rowX[1].map((x) => burnt(x, 440, 1.45)).join('') + L.land(448, '#2a2c33', 8, 8)
+    + [[180, 250], [460, 230], [640, 260]].map(([x, y], i) => `<path class="drift" style="animation-delay:${i}s" d="M${x} ${y} q-16 -30 4 -56 q18 -26 -2 -54" stroke="#b9b6bc" stroke-width="7" fill="none" opacity=".4" stroke-linecap="round"/>`).join('');
+
+  // ---------- 58. Greeting the children ----------
+  S.slm1 = () => L.sky('day') + L.sun(120, 90, 36) + L.cloud(580, 80, 1.1) + L.town(300, 161, 9, [P.clay1, '#eedcb8', P.clay2], 0, 0, 800, 34, 70) + L.palm(620, 302, 110, -6) + L.palm(180, 302, 90, 6)
+    + L.land(306, P.sand1, 3, 6) + Pth('M240 500 L360 312 L440 312 L560 500Z', '#f3e3bb') + toys(400, 452) + L.land(490, P.sand3, 9, 3);
+  S.slm2 = () => L.sky('day') + L.cloud(600, 80, 1) + L.land(280, '#e6cf9f', 3, 20) + L.palm(110, 336, 150, 10) + L.land(344, P.sand2, 6, 10)
+    + mat(570, 452, 320, P.terra) + L.bowl(520, 428, 0.9, P.clay3, false) + L.loaf(610, 422, 0.8) + L.loaf(650, 436, 0.7)
+    + goat(240, 446, 1.5) + L.bowl(340, 462, 0.8, P.clay2, false) + E(340, 444.5, 29, 5, '#fbf9f4') + L.land(482, P.sand3, 9, 4);
+  S.slm3 = () => L.sky('dawn') + L.sun(400, 290, 50) + L.town(400, 42, 4, ['#b98a7a', '#c79a80'], 0, 250, 550, 60, 110) + lane('#caa07c', '#b98d6c', '#e0c49a') + laneDoors(false) + toys(400, 470) + L.flock(400, 150, 12, 7, 120, 1.1);
+
+  // ---------- 60. A father's kiss ----------
+  S.bos1 = () => L.sky('day') + L.sun(660, 100, 40) + L.cloud(170, 110, 1.1) + L.land(430, '#e6cf9f', 3, 16) + L.palm(400, 500, 320, 0) + L.nest(404, 206, 1.7) + L.dove(380, 176, 1.3) + L.dove(520, 128, 1.1, '#dfe3e7', true) + L.land(476, P.sand2, 6, 8);
+  S.bos2 = () => L.sky('day') + L.sun(120, 90, 36) + L.town(330, 22, 7, [P.clay1, P.clay2], 0, 0, 800, 40, 70) + L.land(332, P.sand1, 3, 6)
+    + L.house(250, 430, 300, 170, '#ead2aa', { win: true, winAt: 0.8, doorAt: 0.4 }) + L.palm(620, 430, 170, -10) + L.land(432, P.sand2, 6, 6)
+    + L.dove(130, 456, 0.9) + L.dove(196, 462, 0.6, '#dfe3e7', true) + L.dove(166, 478, 0.45, '#f4f1ea') + L.flock(400, 120, 8, 6, 140, 1);
+
+  // ---------- 63. Firewood from the bare land ----------
+  const bare = () => L.sky('noon') + L.sun(650, 90, 40) + L.land(300, '#e9d6ad', 3, 10) + L.land(350, '#dcc391', 5, 8) + L.land(410, '#cdb07a', 8, 6)
+    + `<path d="M90 446 l40 14 l30 -10 l50 16 M430 436 l36 18 l44 -8 M610 466 l30 -12 l40 10 l34 -14 M250 484 l40 -10 l30 12" stroke="#a98a55" stroke-width="2.5" fill="none"/>`;
+  S.qra1 = () => bare() + L.camel(130, 360, 0.5, '#8a6a4a', true) + L.camel(196, 362, 0.5, '#7a5a3a', true) + L.camel(262, 360, 0.5, '#8a6a4a', true);
+  S.qra2 = () => bare() + woodPile(400, 446, 1.9) + L.sticks(130, 468, 1.1, false) + L.sticks(680, 472, 1, false);
+
+  // ---------- 68. The ring given in ruku ----------
+  S.rng1 = () => R(0, 0, 800, 500, '#e7d2ab') + floor(392, '#cdb07a') + R(0, 0, 800, 64, P.wood3) + fronds(0, 800, 64) + niche(400, 392, 130, 210, '#b98d5c')
+    + pcol(110, 64, 400) + pcol(280, 64, 400) + pcol(520, 64, 400) + pcol(690, 64, 400) + mat(210, 476, 240, P.terra) + mat(590, 476, 240, '#2f6f8b');
+  S.rng2 = () => R(0, 0, 800, 500, '#3b2a22') + L.glow(400, 260, 320, '#f6e7c4', 0.16) + E(400, 440, 300, 54, '#7a3d4a') + E(400, 436, 250, 40, '#8a4a58')
+    + `<ellipse cx="400" cy="296" rx="108" ry="118" fill="none" stroke="#aeb3bd" stroke-width="32"/><ellipse cx="400" cy="296" rx="108" ry="118" fill="none" stroke="#e6e9ee" stroke-width="10" stroke-dasharray="150 600" transform="rotate(-50 400 296)"/>`
+    + E(400, 178, 66, 36, '#8f949e') + E(400, 172, 58, 30, '#d9dce2') + E(400, 172, 40, 19, '#c2c6ce')
+    + [[300, 150], [520, 210], [340, 380]].map(([x, y], i) => `<path class="tw" style="animation-delay:${i * 0.7}s" d="M${x} ${y - 12} L${x + 3} ${y - 3} L${x + 12} ${y} L${x + 3} ${y + 3} L${x} ${y + 12} L${x - 3} ${y + 3} L${x - 12} ${y} L${x - 3} ${y - 3}Z" fill="#fff"/>`).join('');
+  S.rng3 = () => L.sky('day') + L.sun(660, 90, 36) + L.cloud(200, 90, 1) + L.land(300, '#e6cf9f', 3, 16) + R(140, 236, 520, 180, '#e3c9a0') + R(130, 222, 540, 16, P.wood3) + fronds(130, 670, 238)
+    + pcol(230, 250, 416) + pcol(570, 250, 416) + Pth('M364 416 v-90 a36 36 0 0 1 72 0 v90Z', '#3b2a22') + L.palm(70, 416, 200, 10) + L.palm(740, 416, 180, -10)
+    + L.land(418, P.sand2, 6, 6) + L.steps(398, 486, 5, 1, -14, P.sand4, 1.2) + L.land(492, P.sand3, 9, 3);
+
+  // ---------- 75. The load of date stones ----------
+  const pits = (x0, x1, y0, y1, seed, count = 40, s = 1) => { const r = L.rng(seed); let o = ''; for (let i = 0; i < count; i++) { const x = x0 + r() * (x1 - x0), y = y0 + r() * (y1 - y0); o += `<ellipse cx="${Math.round(x)}" cy="${Math.round(y)}" rx="${7 * s}" ry="${3.2 * s}" fill="${r() > 0.5 ? '#6a4226' : '#7d5230'}" transform="rotate(${Math.round(r() * 180)} ${Math.round(x)} ${Math.round(y)})"/>`; } return o; };
+  S.nwa1 = () => L.sky('day') + L.sun(120, 90, 36) + L.cloud(580, 80, 1) + L.land(300, '#e6cf9f', 3, 24) + L.palm(690, 314, 90, -6) + L.land(360, P.sand2, 6, 14)
+    + L.camel(330, 446, 1.7, P.rock3, true) + L.sack(300, 360, 0.75) + L.sack(360, 364, 0.7, '#a88a5c') + L.sack(570, 462, 1) + pits(620, 720, 452, 474, 5, 14) + L.land(484, P.sand3, 9, 4);
+  S.nwa2 = () => L.sky('day') + L.land(240, '#e6cf9f', 3, 16) + L.land(320, P.sand2, 6, 10) + L.land(390, P.sand3, 8, 6) + L.sack(230, 452, 2.1) + pits(330, 720, 420, 482, 9, 46, 1.5)
+    + `<g transform="rotate(24 640 300)"><rect x="634" y="200" width="12" height="190" rx="5" fill="${P.wood2}"/><path d="M612 380 h56 l-6 62 q-22 14 -44 0Z" fill="#7d7a80"/></g>`;
+  S.nwa3 = () => L.sky('day') + L.sun(650, 90, 38) + L.cloud(200, 90, 1) + L.land(284, '#cfe0b0', 3, 12) + [50, 130, 210, 290, 370, 450, 530, 610, 690, 770].map((x, i) => L.palm(x, 292, 54, i % 2 ? 3 : -3)).join('')
+    + L.land(300, P.leaf1, 4, 8) + [40, 150, 260, 370, 480, 590, 700].map((x, i) => L.palm(x, 356, 92, i % 2 ? -5 : 5)).join('') + L.land(364, '#a9c79a', 6, 8)
+    + Pth('M360 500 Q390 430 396 366 L410 366 Q420 430 460 500Z', P.sea1) + [110, 300, 540, 730].map((x, i) => L.palm(x, 456, 170, i % 2 ? -8 : 8)).join('') + L.land(470, P.leaf2, 9, 6) + L.flock(400, 120, 7, 6, 130, 1);
+
+  // ---------- 78. "The neighbour first" ----------
+  S.jar1 = () => room('#3f2c22', '#2a1d18') + windowArch(610, 250, 'night') + L.lamp(120, 386, 1.2) + mat(390, 474, 320, '#2f6f8b');
+  const street = (cols, sideCols, lit) => L.town(330, 182, 8, cols, lit ? 0.5 : 0, 0, 800, 40, 80) + L.house(60, 444, 190, 110, sideCols[0], { win: true, lit: false, winAt: 0.7 }) + L.house(560, 444, 200, 124, sideCols[0], { win: true, lit, winAt: 0.3 })
+    + L.house(290, 444, 220, 156, sideCols[1], { win: true, lit, winAt: 0.72, doorAt: 0.3 });
+  S.jar2 = () => L.sky('night') + L.stars(181, 80, 280) + L.moon(660, 80, 26) + street(['#2a2a55', '#232349', '#30305e'], ['#2a2853', '#34315f'], true) + L.land(446, '#1b1838', 6, 6);
+  S.jar3 = () => L.sky('dawn') + L.sun(400, 296, 56) + street(['#b98a7a', '#a87a70', '#c79a80'], ['#d6ac8c', '#e3c29a'], false) + L.land(446, P.sand2, 6, 6) + L.flock(400, 130, 9, 8, 150, 1.2);
+
+  // ---------- 86. The poor men's meal ----------
+  const road = () => L.sky('day') + L.sun(660, 90, 36) + L.cloud(220, 90, 1) + L.land(290, '#e6cf9f', 3, 22) + L.palm(110, 336, 150, 10) + L.palm(700, 326, 110, -8) + L.land(350, P.sand2, 6, 12) + Pth('M0 424 Q400 384 800 424 L800 500 L0 500Z', '#f0dcb0');
+  S.sfr1 = () => road() + Pth('M270 476 L310 414 L490 414 L530 476Z', '#5a4a6a') + Pth('M286 470 L318 422 L482 422 L514 470Z', 'none', 'stroke="#8a7a9a" stroke-width="2.5"') + bits([[350, 446, -8], [400, 436, 6], [446, 450, 14], [384, 462, -4], [452, 432, -12]]);
+  S.sfr2 = () => L.sky('day') + L.land(230, '#e6cf9f', 3, 18) + L.palm(90, 300, 150, 10) + L.land(300, P.sand2, 6, 10) + Pth('M0 360 Q400 330 800 360 L800 500 L0 500Z', '#f0dcb0')
+    + Pth('M150 490 L240 370 L560 370 L650 490Z', '#5a4a6a') + Pth('M180 480 L254 384 L546 384 L620 480Z', 'none', 'stroke="#8a7a9a" stroke-width="3"')
+    + G(0, 0, 1, bits([[300, 430, -8], [380, 414, 6], [460, 436, 14], [350, 460, -4], [470, 402, -12], [410, 452, 10], [320, 404, 18]])) + L.jug(590, 430, 0.9);
+  S.sfr3 = () => L.sky('day') + L.sun(120, 90, 36) + L.town(330, 22, 7, [P.clay1, P.clay2], 0, 0, 800, 40, 70) + L.land(332, P.sand1, 3, 6)
+    + L.house(280, 432, 300, 176, '#ead2aa', { win: true, winAt: 0.8, doorAt: 0.4, doorFill: '#f6c98a' }) + L.palm(650, 432, 170, -10) + L.land(434, P.sand2, 6, 6) + L.steps(110, 486, 8, 36, -6, P.sand4, 1.3) + L.steps(150, 468, 6, 36, -6, P.sand4, 1.1);
+
+  // ---------- 92. The ewer and the three phrases ----------
+  const brass = '#b98d3a';
+  const washRoom = () => room() + windowArch(640, 250, 'day') + Pth('M596 250 L684 250 L600 500 L420 500Z', '#f6e7c4', 'opacity=".12"') + mat(330, 482, 360, '#6a2f4e') + L.bowl(330, 452, 1.5, brass, true);
+  S.kuz1 = () => washRoom() + L.jug(170, 470, 1.5, brass);
+  S.kuz2 = () => washRoom() + E(160, 478, 96, 12, P.sea1, 'opacity=".7"') + `<path class="ripple" d="M110 478 q20 -6 40 0 q20 6 40 0" stroke="#d8f0f4" stroke-width="2" fill="none"/>` + `<g transform="translate(210 468) rotate(-82)">${L.jug(0, 0, 1.5, brass)}</g>`;
+  S.kuz3 = () => room('#5a3f2e', '#3b2a22') + openDoor(400, 384, 180, 290, 'day') + Pth('M310 384 L490 384 L610 500 L190 500Z', '#f6e7c4', 'opacity=".22"') + L.flock(400, 230, 5, 4, 40, 0.8) + L.jug(150, 470, 1.3, brass) + L.lamp(660, 440, 1);
+
+  // ---------- 96. Bread on a rainy night ----------
+  S.nan1 = () => L.sky('storm') + L.town(400, 42, 4, ['#1a1c2e', '#20222e'], 0.2, 250, 550, 60, 110) + lane('#262a38', '#20242f', '#30343f') + laneDoors(false)
+    + E(400, 470, 110, 12, '#4a5a6a', 'opacity=".6"') + [[300, 446], [364, 466], [430, 448], [498, 474], [256, 482], [540, 444]].map(([x, y]) => L.loaf(x, y, 0.7)).join('') + L.sack(650, 478, 1.1, '#a39a86') + L.rain(8, 110);
+  S.nan2 = () => L.sky('storm') + L.land(380, '#30343f', 3, 6) + R(140, 190, 14, 220, P.wood4) + R(646, 190, 14, 220, P.wood4) + R(393, 150, 14, 260, P.wood4)
+    + Pth('M90 196 L400 124 L710 196 L710 214 L400 146 L90 214Z', P.wood3) + Pth('M90 196 L400 124 L710 196 L400 112Z', '#3a4a3a')
+    + mat(250, 446, 190, '#4a3a5a') + mat(550, 446, 190, '#3a4a5a') + mat(400, 486, 190, '#5a4a3a') + L.loaf(340, 440, 0.6) + L.loaf(640, 440, 0.6) + L.loaf(486, 480, 0.6) + L.loaf(512, 472, 0.5) + L.rain(9, 90);
+
+  // ---------- 100. Everyone at one table ----------
+  S.sfa1 = () => L.sky('day') + L.sun(660, 90, 36) + L.peaks(300, P.rock1, 3, 5, 70) + L.land(320, '#e6cf9f', 3, 20) + L.tent(200, 404, 1.6) + L.tent(610, 394, 1.3, '#e9dcc0', '#2f6f8b')
+    + L.camel(380, 384, 0.8, P.rock3, true) + L.camel(470, 388, 0.7, P.rock4, true) + L.land(414, P.sand2, 6, 10) + stones(400, 466) + L.pot(400, 458, 0.9) + L.land(488, P.sand3, 9, 3);
+  S.sfa2 = () => L.sky('day') + L.land(200, '#e6cf9f', 3, 16) + L.tent(130, 256, 1.2) + L.tent(690, 250, 1.1, '#e9dcc0', '#2f6f8b') + L.land(264, P.sand2, 5, 8)
+    + Pth('M60 486 L210 300 L590 300 L740 486Z', '#efe2c4') + Pth('M96 474 L226 314 L574 314 L704 474Z', 'none', `stroke="${P.terra}" stroke-width="3"`)
+    + [250, 325, 400, 475, 550].map((x) => L.bowl(x, 330, 0.42, P.clay3)).join('') + [290, 400, 510].map((x) => L.loaf(x, 362, 0.6)).join('')
+    + tray(400, 410, 0.7) + [240, 560].map((x) => L.loaf(x, 412, 0.8)).join('')
+    + [150, 275, 400, 525, 650].map((x) => L.bowl(x, 468, 0.78, P.clay3)).join('') + [212, 337, 462, 588].map((x) => L.loaf(x, 452, 0.7)).join('');
+  S.sfa3 = () => L.sky('night') + L.stars(201, 70, 260) + L.moon(140, 90, 28) + L.land(320, '#262148', 3, 20) + L.tent(250, 414, 1.7, '#3d396b', '#6a2f4e') + L.tent(610, 404, 1.3, '#34315f', '#2f6f8b')
+    + L.land(424, '#1b1838', 6, 8) + L.lamp(420, 462, 1.2) + L.camel(700, 440, 0.7, '#14122a', true);
+
+  // ---------- 111. The big door ----------
+  const front = () => L.sky('day') + L.sun(120, 80, 34) + R(0, 150, 800, 284, '#e7cfa6') + R(0, 138, 800, 16, P.clay3) + R(0, 434, 800, 66, '#d9c08f');
+  S.dar1 = () => front() + L.door(330, 434, 190, 290) + smallDoor(650, 434, 64, 120) + L.palm(60, 434, 230, 8) + L.palm(760, 434, 150, -6) + L.steps(330, 486, 4, 2, -12, P.sand4, 1.2);
+  S.dar2 = () => R(0, 0, 800, 500, '#4a3226') + R(0, 330, 800, 170, '#6a4226') + R(0, 322, 800, 12, P.wood4) + L.lamp(110, 330, 1.3)
+    + Pth('M230 440 L262 150 L560 158 L590 448Z', '#f6ecd2') + R(250, 132, 322, 26, '#e3cf9f', 'rx="13"')
+    + [0, 1, 2, 3, 4, 5, 6, 7].map((i) => `<line x1="${286 - i * 3}" y1="${196 + i * 30}" x2="${(i === 7 ? 420 : 540) + i * 3}" y2="${199 + i * 30}" stroke="#8a7a5a" stroke-width="4" stroke-linecap="round" opacity=".75"/>`).join('')
+    + E(660, 420, 30, 12, '#2c2a33') + R(634, 384, 52, 38, '#2c2a33', 'rx="8"') + `<line x1="668" y1="388" x2="730" y2="300" stroke="${P.wood1}" stroke-width="5" stroke-linecap="round"/>`;
+  S.dar3 = () => R(0, 0, 800, 500, '#4a3226') + R(0, 330, 800, 170, '#6a4226') + R(0, 322, 800, 12, P.wood4) + E(400, 440, 300, 50, '#7a3d4a') + L.sack(280, 446, 1.5, '#8a5a34')
+    + [[430, 440, 1], [470, 448, 0], [510, 436, 1], [550, 452, 0], [590, 440, 1], [470, 420, 1], [520, 414, 0], [400, 462, 0], [620, 462, 1], [560, 426, 1]].map(([x, y, g]) => coin(x, y, !!g)).join('')
+    + [0, 1, 2, 3].map((i) => coin(380, 430 - i * 7, true)).join('') + [0, 1, 2].map((i) => coin(650, 440 - i * 7, false)).join('');
+  S.dar4 = () => R(0, 0, 800, 500, '#5a3f2e') + floor(400, '#3b2a22') + openDoor(400, 400, 300, 360, 'day') + Pth('M250 400 L550 400 L700 500 L100 500Z', '#f6e7c4', 'opacity=".25"')
+    + L.flock(400, 200, 7, 5, 70, 0.9) + `<circle cx="470" cy="150" r="26" fill="#ffe08a" opacity=".9"/>`;
+}

@@ -5,11 +5,17 @@ import json, re, os, sys
 root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # stories that are written: id -> (English title, cover scene, caution flag)
 READY = {
-    4: ("Nuh's Ship", "nuh2", 0), 9: ("The Fire That Turned Cool", "ibr3", 0),
-    29: ("Sulayman and the Ant", "sul3", 0), 32: ("Yunus and the Whale", "yun3", 0),
+    4: ("Prophet Nuh's Ship", "nuh2", 0), 9: ("The Fire That Turned Cool", "ibr3", 0),
+    29: ("Prophet Sulayman and the Ant", "sul3", 0), 32: ("Prophet Yunus and the Whale", "yun3", 0),
     52: ("The Cave of Thawr", "thw3", 0), 61: ("“The Firewood Is Mine”", "hzm4", 0),
     77: ("Three Nights of Iftar", "hal3", 0), 82: ("The Old Man's Wudu", "wdu1", 0),
     91: ("The Sacks in the Night", "saj2", 0), 103: ("The Boy Who Did Not Run", "jwd1", 1),
+    # batch 2 (Farsi only)
+    7: (None, "str1", 0), 8: (None, "idl1", 0), 13: (None, "kab3", 0), 21: (None, "mus2", 0), 22: (None, "mad2", 0),
+    25: (None, "bhr3", 0), 30: (None, "hud2", 0), 34: (None, "mry3", 0), 37: (None, "khf3", 0), 38: (None, "bgh1", 0),
+    58: (None, "slm1", 0), 60: (None, "bos1", 0), 63: (None, "qra2", 0), 68: (None, "rng2", 0), 75: (None, "nwa3", 0),
+    78: (None, "jar2", 0), 86: (None, "sfr1", 0), 92: (None, "kuz1", 0), 96: (None, "nan1", 0), 100: (None, "sfa2", 0),
+    111: (None, "dar1", 0),
 }
 rows, group = [], None
 for line in open(os.path.join(root, "story-list.md"), encoding="utf-8"):
@@ -22,10 +28,11 @@ for line in open(os.path.join(root, "story-list.md"), encoding="utf-8"):
         r = {"id": i, "fa": m.group(2).strip(), "about": m.group(3).strip(), "src": m.group(4).replace("⚠", "").strip(),
              "type": m.group(5), "age": int(m.group(6)), "group": group}
         if i in READY:
-            r.update(ready=1, en=READY[i][0], cover=READY[i][1])
+            r.update(ready=1, cover=READY[i][1])
+            if READY[i][0]: r["en"] = READY[i][0]
             if READY[i][2]: r["caution"] = 1
         rows.append(r)
-assert len(rows) == 110, len(rows)
+assert len(rows) == 111, len(rows)
 groups = {"A": {"fa": "قرآن و پیامبران", "en": "Qur'an and the prophets"}, "B": {"fa": "پیامبر (ص)", "en": "The Prophet"},
           "C": {"fa": "اهل بیت (ع)", "en": "Ahl al-Bayt"}, "D": {"fa": "یاران و حکیمان", "en": "Companions and the wise"}}
 with open(os.path.join(root, "content", "catalog.js"), "w", encoding="utf-8") as f:
@@ -39,4 +46,8 @@ if len(sys.argv) > 1:
     with open(os.path.join(root, "content", "ayat.js"), "w", encoding="utf-8") as f:
         f.write("// Qur'an text from Tanzil.net (simple, fully vowelled), fetched via api.alquran.cloud. Verbatim; do not edit.\n")
         f.write("export const A = " + json.dumps(ay, ensure_ascii=False, indent=1) + ";\n")
+# keep the offline list in sw.js in step with the written stories
+sw = os.path.join(root, "sw.js"); t = open(sw, encoding="utf-8").read()
+t = re.sub(r"\.\.\.\[[\d, ]+\]\.map", "...[" + ", ".join(str(i) for i in sorted(READY)) + "].map", t)
+open(sw, "w", encoding="utf-8").write(t)
 print("catalog:", len(rows), "ready:", sum(1 for r in rows if r.get("ready")))
