@@ -68,5 +68,17 @@ if os.path.exists(ayp):
 # keep the offline list in sw.js in step with the written stories
 sw = os.path.join(root, "sw.js"); t = open(sw, encoding="utf-8").read()
 t = re.sub(r"\.\.\.\[[\d, ]+\]\.map", "...[" + ", ".join(str(i) for i in sorted(READY)) + "].map", t)
+# name the cache after the content of everything the app serves: any change gives installed copies a new version
+import hashlib
+h = hashlib.sha1()
+for d, _, fs in sorted(os.walk(root)):
+    rel = os.path.relpath(d, root).replace(os.sep, "/")
+    if not (rel == "." or rel.split("/")[0] in ("css", "js", "content", "fonts", "icons")): continue
+    for f in sorted(fs):
+        if rel == "." and f not in ("index.html", "manifest.webmanifest"): continue
+        if f.startswith("."): continue
+        h.update((rel + "/" + f).encode()); h.update(open(os.path.join(d, f), "rb").read())
+h.update(re.sub(r"const CACHE = '[^']*';", "", t).encode())
+t = re.sub(r"const CACHE = '[^']*';", "const CACHE = 'qasas-" + h.hexdigest()[:10] + "';", t)
 open(sw, "w", encoding="utf-8").write(t)
 print("catalog:", len(rows), "ready:", sum(1 for r in rows if r.get("ready")))

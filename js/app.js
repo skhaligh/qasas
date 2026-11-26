@@ -501,5 +501,12 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('visibilitychange', () => { if (!document.hidden && route.v === 'read') keepAwake(true); });
 window.addEventListener('hashchange', go);
 
-if ('serviceWorker' in navigator && !['localhost', '127.0.0.1'].includes(location.hostname)) navigator.serviceWorker.register('sw.js').catch(() => {});
+if ('serviceWorker' in navigator && !['localhost', '127.0.0.1'].includes(location.hostname)) {
+  const hadWorker = !!navigator.serviceWorker.controller;
+  let fresh = false, done = false;
+  const reloadIfIdle = () => { if (fresh && !done && route.v !== 'read') { done = true; location.reload(); } };
+  navigator.serviceWorker.addEventListener('controllerchange', () => { if (hadWorker) { fresh = true; reloadIfIdle(); } });
+  window.addEventListener('hashchange', () => setTimeout(reloadIfIdle, 0));
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
 go();

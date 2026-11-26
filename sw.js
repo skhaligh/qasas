@@ -1,7 +1,8 @@
-// Offline support. Everything is served from the cache first and refreshed in the background,
-// so the app opens without a connection and picks up new stories on the next launch.
-// Both the install and the background refresh bypass the browser's own cache, so a new version never mixes with old files.
-const CACHE = 'qasas-v5';
+// Offline support. One version at a time: every file is fetched fresh when this worker installs, and from then on
+// the app is served only from that cache, so an old page never runs with a mix of old and new files.
+// A new version arrives as a new worker (tools/build_catalog.py changes CACHE whenever any file changes);
+// when it takes over, the page reloads itself once (see the end of js/app.js).
+const CACHE = 'qasas-66d0b63a68';
 const CORE = ['./', 'index.html', 'manifest.webmanifest', 'css/app.css', 'css/art.css', 'fonts/Vazirmatn-wght.woff2',
   'js/app.js', 'js/audio.js', 'js/store.js', 'js/rec.js', 'js/art/lib.js', 'js/art/scenes.js', 'js/art/scenes2.js',
   'content/catalog.js', 'content/ayat.js', 'content/util.js', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png',
@@ -13,7 +14,9 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
   e.respondWith(caches.open(CACHE).then(async (c) => {
     const hit = await c.match(req, { ignoreSearch: true });
-    const net = fetch(req, { cache: 'no-cache' }).then((res) => { if (res.ok) c.put(req, res.clone()); return res; }).catch(() => hit);
-    return hit || net;
+    if (hit) return hit;
+    const res = await fetch(req, { cache: 'no-cache' });
+    if (res.ok) c.put(req, res.clone());
+    return res;
   }));
 });

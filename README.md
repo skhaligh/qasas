@@ -49,7 +49,7 @@ Then open http://localhost:4173. To install it on a phone or tablet (and use it 
 
 ## Deploying
 
-The app is hosted on GitHub Pages from the `main` branch of `skhaligh/qasas`: push to `main` and the site updates in a minute or two. When any file changes, raise the number in `CACHE` in `sw.js` so installed copies pick up the new version.
+The app is hosted on GitHub Pages from the `main` branch of `skhaligh/qasas`: push to `main` and the site updates in a minute or two. Always run `python3 tools/build_catalog.py` before pushing: it names the cache in `sw.js` after the content of the app's files, so any change gives installed copies a new version. An installed copy keeps running its current version until the new one has been fetched in full, then reloads itself once (never in the middle of a story or a recording).
 
 ## Credits
 
