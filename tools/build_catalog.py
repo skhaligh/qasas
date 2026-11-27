@@ -33,6 +33,11 @@ READY = {
     57: ("The Trunk That Wept", "hnn2", 0), 66: ("Born in the Kaʿba", "mld1", 0),
     69: ("Ghadir Khumm", "ghd2", 0), 71: ("The Fellow Traveller on the Road to Kufa", "hms2", 0),
     99: ("The Farm of the Man with the Sharp Tongue", "mzr1", 0), 110: ("The Advice of Luqman the Wise", "lqm1", 0),
+    # batch 5 (seven stories for ages 9+, Farsi and English)
+    3: ("The Two Brothers and the Crow", "hbl4", 0), 14: ("Prophet Ibrahim’s Dream", "zbh4", 0),
+    39: ("Dhul-Qarnayn and the Iron Wall", "zul6", 0), 47: ("The Migrants and the King of Habasha", "hbs1", 0),
+    49: ("The Journey to Taʾif", "tyf4", 0), 73: ("The Brother and the Heated Iron", "aql2", 0),
+    97: ("Too Much Profit", "sud3", 0),
 }
 rows, group = [], None
 for line in open(os.path.join(root, "story-list.md"), encoding="utf-8"):

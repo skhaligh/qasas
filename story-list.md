@@ -19,7 +19,7 @@
 |---|---|---|---|---|---|---|
 | 1 | حضرت آدم و فرشته‌ها | God creates Adam and teaches him the names; the angels bow, Iblis is too proud | 2:30–33 · 38:71–76 · 7:12–17 · تفسیر عیاشی ج۱ · نهج‌البلاغه خطبهٔ ۱۹۲ | Q+H | 6+ | |
 | 2 | باغ و درخت | Adam and Hawwa in the garden, the mistake, and how they said sorry | 2:35–38 · 7:20–23 · 20:115–120 · عیون اخبار الرضا ج۱ · معانی‌الاخبار | Q+H | 6+ | |
-| 3 | دو برادر و کلاغ | Habil and Qabil; jealousy, and the crow that taught a lesson | 5:27–31 | Q | 9+ | |
+| 3 | دو برادر و کلاغ | Habil and Qabil; jealousy, and the crow that taught a lesson | 5:27–32 · قصص‌الانبیاء راوندی ج۱ ص۶۱ · تفسیر عیاشی ج۱ ص۳۱۲ · کافی ج۸ ص۱۱۳ · تفسیر قمی ج۱ ص۱۶۵ | Q+H | 9+ | |
 | 4 | کشتی حضرت نوح | Nuh builds the ship while people laugh; the rain, the animals, the landing | 11:25–48 · 23:23–30 · 54:9–15 | Q | 3+ | ★ |
 | 5 | حضرت هود و باد | The strong people of 'Ad and the wind | 11:50–58 · 46:24–25 · 69:6–7 · 26:128–134 · 41:15 · 89:6–8 · کافی ج۸ ص۹۲ | Q+H | 6+ | |
 | 6 | شتر حضرت صالح | The she-camel and the people who would not share the water | 7:73–79 · 11:61–67 · 26:146–155 · 54:28 · 91:11–14 · کافی ج۸ ص۱۸۵ · نهج‌البلاغه خطبهٔ ۲۰۱ | Q+H | 6+ | |
@@ -30,7 +30,7 @@
 | 11 | مهمان‌های حضرت ابراهیم | The guests who do not eat, and the good news | 11:69–76 · 51:24–27 · 15:53–56 · علل‌الشرایع ج۱ · کافی ج۸ ص۳۲۸ | Q+H | 6+ | |
 | 12 | چشمه زمزم | Hajar runs between the hills; water springs at baby Ismail's feet | 14:37 · کافی ج۴ ص۲۰۱–۲۰۲ · تفسیر قمی ج۱ | Q+H | 3+ | |
 | 13 | خانهٔ خدا | Ibrahim and Ismail build the Ka'ba and pray for us | 2:125–129 · 22:26–27 · 3:96 · 14:37 | Q | 3+ | |
-| 14 | خواب حضرت ابراهیم | The great test, the patient son, and the ram | 37:99–111 | Q | 9+ | |
+| 14 | خواب حضرت ابراهیم | The great test, the patient son, and the ram | 37:99–112 · تفسیر قمی ج۲ ص۲۲۶ · کافی ج۴ ص۲۰۷–۲۰۹ · علل‌الشرایع ج۲ ص۴۳۷ · عیون اخبار الرضا ج۱ | Q+H | 9+ | |
 | 15 | حضرت یوسف (۱): خواب و چاه | Eleven stars; jealous brothers; the well | 12:4–20 | Q | 6+ | |
 | 16 | حضرت یوسف (۲): مصر و زندان | Yusuf chooses prison over doing wrong; the two prisoners' dreams (told softly) | 12:21–42 · عیون اخبار الرضا ج۱ · تفسیر عیاشی ج۲ | Q+H | 6+ | |
 | 17 | حضرت یوسف (۳): خواب پادشاه | Seven fat cows and seven thin; Yusuf saves Egypt from hunger | 12:43–57 | Q | 6+ | |
@@ -55,7 +55,7 @@
 | 36 | سفره آسمانی | The disciples ask for a table from heaven | 5:112–115 | Q | 6+ | |
 | 37 | اصحاب کهف | The young men, their dog, and the long sleep in the cave | 18:9–26 | Q | 3+ | |
 | 38 | صاحبان باغ | The brothers who planned to keep all the fruit from the poor | 68:17–33 · تفسیر قمی ۲/۳۸۱ (Ibn 'Abbas) · کافی ۲/۲۷۱ | Q+H | 6+ | |
-| 39 | ذوالقرنین و سدّ آهنی | The traveller king builds a wall and takes no pay | 18:83–98 | Q | 9+ | |
+| 39 | ذوالقرنین و سدّ آهنی | The traveller king builds a wall and takes no pay | 18:83–98 · کمال‌الدین ج۲ ص۳۹۳ · علل‌الشرایع ج۱ ص۴۰ · کافی ج۱ ص۲۶۹ · تفسیر عیاشی ج۲ | Q+H | 9+ | |
 | 40 | اصحاب فیل | The elephant army, Abd al-Muttalib's camels, and the birds | 105:1–5 · کافی ج۴ ص۲۱۶ · کافی ج۱ ص۴۴۷ | Q+H | 3+ | |
 
 ## B. The Prophet (ص) (41–65)
@@ -68,9 +68,9 @@
 | 44 | کوه حرا | His yearly retreat on Mount Hira, and "Read!"; the first three to pray | 96:1–5 · نهج‌البلاغه خطبهٔ ۱۹۲ · تفسیر قمی ج۲ · اعلام‌الوری ج۱ · بحار ج۱۸ | Q+H | 6+ | |
 | 45 | دعوت خویشان | The family meal; only a boy named Ali stands up | 26:214 · تاریخ طبری ج۲ · ارشاد مفید | Q+T | 6+ | |
 | 46 | خورشید در دست راست | "Even if they put the sun in my right hand…" | سیره ابن هشام ج۱ | T | 6+ | |
-| 47 | مهاجران و پادشاه حبشه | Ja'far speaks before the just king; the king weeps at Sura Maryam | سیره ابن هشام ج۱ | T | 9+ | |
+| 47 | مهاجران و پادشاه حبشه | Ja'far speaks before the just king; the king weeps at Sura Maryam | تفسیر قمی ج۱ ص۱۷۶–۱۷۸ · اعلام‌الوری ج۱ · سیره ابن هشام ج۱ · تهذیب ج۳ ص۱۸۶ · 19:25–26 · 5:83 | Q+T | 9+ | |
 | 48 | موریانه و پیمان‌نامه | Three hungry years in the valley; termites eat the unjust pact | سیره ابن هشام ج۱–۲ · بحار ج۱۹ | T | 9+ | |
-| 49 | سفر طائف | Stones, a vineyard, a bunch of grapes, and a prayer instead of anger | سیره ابن هشام ج۲ | T | 9+ | |
+| 49 | سفر طائف | Stones, a vineyard, a bunch of grapes, and a prayer instead of anger | اعلام‌الوری ج۱ ص۱۳۳–۱۳۶ · مناقب ج۱ ص۶۸ · سیره ابن هشام ج۱ ص۴۱۹–۴۲۱ · 21:107 | T | 9+ | |
 | 50 | سفر شبانه | The night journey to Masjid al-Aqsa and the heavens (kept to what the ayat say) | 17:1 · 53:1–18 | Q | 6+ | |
 | 51 | شب هجرت | Ali sleeps in the Prophet's bed so he can leave safely | 8:30 · 2:207 · امالی طوسی مجلس ۱۶ · خصال ج۲ · تفسیر قمی ج۱ · کافی ج۸ ص۳۴۰ | Q+H | 6+ | |
 | 52 | غار ثور | "Do not be sad, God is with us"; the spider's web at the cave mouth | 9:40 · سیره ابن هشام ۱/۴۸۵ · web: مسند احمد ۳۲۵۱، تفسیر قمی ۱/۲۷۶ | Q+T | 3+ | ★ |
@@ -101,7 +101,7 @@
 | 70 | مسیحی و زره | The caliph stands in court like anyone else, and loses | الغارات · بحار ج۴۱ · داستان راستان «مسیحی و زره علی» | T | 6+ | |
 | 71 | همسفر راه کوفه | He walks a non-Muslim fellow traveller part of his way: the right of a companion | کافی ج۲ ص۶۷۰ · قرب‌الاسناد · داستان راستان «مسلمان و کتابی» | H | 6+ | |
 | 72 | تنور و بچه‌های یتیم | He carries flour to a widow, bakes the bread and plays with her children | مناقب ابن شهرآشوب ج۲ · بحار ج۴۱ ⚠ | T | 6+ | |
-| 73 | برادر و آهن داغ | Aqil asks for more from the public treasury | نهج‌البلاغه خطبه ۲۲۴ | H | 9+ | |
+| 73 | برادر و آهن داغ | Aqil asks for more from the public treasury | نهج‌البلاغه خطبهٔ ۲۲۴ · امالی صدوق ح۹۸۸ · کافی ج۸ ص۱۸۲ | H | 9+ | |
 | 74 | دو پیراهن | He buys two shirts and gives the better one to Qanbar | الغارات ج۱ ص۱۰۵ · مکارم‌الاخلاق · امالی صدوق مجلس ۴۷ · کافی ج۸ | H | 3+ | |
 | 75 | بار هستهٔ خرما | "A hundred thousand palm trees, God willing"; the spring at Yanbu' given to travellers | کافی ۵/۷۴ ح ۶ · کافی ۷/۵۴ ح ۹ (صحیح) · کافی ۸/۱۶۵ · نهج‌البلاغه نامه ۲۴ | H | 3+ | |
 | 76 | محراب کوفه | His last days, and his order to treat his attacker fairly | نهج‌البلاغه نامه ۴۷ · ارشاد مفید | T | 9+ | |
@@ -140,7 +140,7 @@
 | 94 | سلام پیامبر | Old Jabir delivers a greeting he has kept for years, to the boy Baqir | کافی ج۱ ص۴۶۹ · امالی صدوق مجلس ۵۶ · رجال کشی | H | 6+ | |
 | 95 | امام باقر (ع) و مرد مسیحی | Answering mockery with calm | مناقب ج۴ · بحار ج۴۶ · داستان راستان | T | 6+ | |
 | 96 | نان در شب بارانی | Imam Sadiq with a sack of bread on a rainy night (told by Mu'alla) | کافی ۴/۸–۹، ح ۳ | H | 6+ | |
-| 97 | سودِ زیادی | He refuses a profit made from other people's need | کافی ج۵ · داستان راستان «بازار سیاه» | H | 9+ | |
+| 97 | سودِ زیادی | He refuses a profit made from other people's need | کافی ج۵ ص۱۶۱ و ۱۶۶ · تهذیب ج۷ · داستان راستان «بازار سیاه» | H | 9+ | |
 | 98 | «بنده است یا آزاد؟» | One sentence from Imam Kazim at a door changes Bishr's life | منهاج‌الکرامة (a later source) · داستان راستان | T | 6+ | |
 | 99 | مزرعه مرد بدزبان | Imam Kazim visits the farm of a man who insults him | ارشاد مفید ج۲ ص۲۳۳ · تاریخ بغداد ج۱۳ · بحار ج۴۸ · کافی ج۲ ص۱۰۷–۱۰۹ | T | 6+ | |
 | 100 | همه سرِ یک سفره | Imam Reza eats at one cloth with every servant | کافی ۸/۲۳۰، ح ۲۹۶ · عیون اخبار الرضا ۲/۱۵۹ و ۲/۱۸۴ · کافی ۶/۲۹۸ | H | 3+ | |
