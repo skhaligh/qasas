@@ -2,7 +2,7 @@
 // the app is served only from that cache, so an old page never runs with a mix of old and new files.
 // A new version arrives as a new worker (tools/build_catalog.py changes CACHE whenever any file changes);
 // when it takes over, the page reloads itself once (see the end of js/app.js).
-const CACHE = 'qasas-e1b1f2ccfb';
+const CACHE = 'qasas-e2f973c62a';
 const CORE = ['./', 'index.html', 'manifest.webmanifest', 'css/app.css', 'css/art.css', 'fonts/Vazirmatn-wght.woff2',
   'js/app.js', 'js/audio.js', 'js/store.js', 'js/rec.js', 'js/art/lib.js', 'js/art/scenes.js', 'js/art/scenes2.js',
   'content/catalog.js', 'content/ayat.js', 'content/util.js', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png',

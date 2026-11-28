@@ -2,7 +2,7 @@
 // Natural and environmental sounds only. A recipe can later be replaced by a recording.
 
 let ctx = null, master, ambBus, cueBus, current = null, currentId = null;
-let vol = 0.7, ambOn = true;
+let vol = 0.7, ambOn = true, duckUntil = 0;
 const bufs = {};
 
 function noiseBuf(type) {
@@ -138,7 +138,8 @@ const CUE = {
   },
   knock: (o, t) => [0, 0.24, 0.48].forEach((dt) => {
     tone(o, t + dt, { f: 170, f2: 105, d: 0.08, a: 0.002, g: 0.7 });
-    burst(o, t + dt, { f: 900, q: 2, d: 0.03, g: 0.4 });
+    burst(o, t + dt, { f: 900, q: 2, d: 0.045, g: 1.3 });
+    burst(o, t + dt, { f: 1900, q: 2, d: 0.025, g: 0.75 });
   }),
   hammer: (o, t) => [0, 0.42, 0.84, 1.26].forEach((dt) => {
     burst(o, t + dt, { f: 2300, q: 3, d: 0.045, g: 0.55 });
@@ -158,7 +159,7 @@ const CUE = {
       const g = 0.8 * Math.sin(((c + 0.5) / 8) * Math.PI);
       [0, 0.1, 0.2].forEach((dt, i) => {
         const tt = t + c * 0.4 + dt;
-        burst(o, tt, { f: i === 2 ? 800 : 1150, q: 4, d: 0.03, g });
+        burst(o, tt, { f: i === 2 ? 800 : 1150, q: 4, d: 0.04, g: g * 2.5 });
         tone(o, tt, { f: 210, f2: 140, d: 0.045, a: 0.002, g: g * 0.6 });
       });
     }
@@ -188,11 +189,21 @@ const CUE = {
     for (let i = 0; i < 10; i++) crackle(o, t + 0.3 + i * R(0.05, 0.14), i % 3 === 0);
   },
   twigs: (o, t) => [0, 0.35, 0.6, 1.0, 1.25].forEach((dt) => {
-    burst(o, t + dt, { f: R(2500, 4500), q: 4, d: 0.03, g: 1.0 });
-    burst(o, t + dt + 0.03, { f: R(1200, 2000), q: 3, d: 0.03, g: 0.6 });
+    burst(o, t + dt, { f: R(2500, 4500), q: 4, d: 0.05, g: 1.0 });
+    burst(o, t + dt + 0.03, { f: R(1200, 2000), q: 3, d: 0.05, g: 0.6 });
   }),
   drip: (o, t) => [0, 0.5, 0.9].forEach((dt) => tone(o, t + dt, { f: 900, f2: 1700, d: 0.06, a: 0.003, g: 0.25 })),
 };
+
+// Level and length (seconds) of each tapped sound. The levels come from measurement: every sound
+// lands at about the same loudness, clearly above the loudest background (storm, rain, wind).
+const CUE_MIX = {
+  thunder: [1.25, 3.9], knock: [1, 0.8], hammer: [1.15, 1.5], birds: [1.4, 2.7], dove: [1, 2.9],
+  steps: [3, 3], hooves: [1.5, 3.3], pour: [3.5, 2.3], splash: [1.6, 1.2], wave: [1.1, 3.8],
+  mill: [2, 3.8], flare: [2.6, 1.9], twigs: [1.9, 1.5], drip: [1.4, 1.2],
+};
+const AMB_LEVEL = 0.55; // background level under the reader's voice
+const DUCK = 0.5;       // while a tapped sound plays, the background drops to half
 
 export const CUE_LABEL = {
   thunder: { fa: 'رعد', en: 'thunder' }, knock: { fa: 'تق تق', en: 'knock' }, hammer: { fa: 'چکش', en: 'hammer' },
@@ -226,6 +237,14 @@ function startAmb(id) {
   g.gain.setTargetAtTime(1, ctx.currentTime, 0.6);
   return live;
 }
+// Sets the background level: off, full, or lowered for as long as a tapped sound is playing.
+function setAmb(tc = 0.3) {
+  if (!ambBus) return;
+  const now = ctx.currentTime, p = ambBus.gain, full = ambOn ? AMB_LEVEL : 0;
+  if (p.cancelAndHoldAtTime) p.cancelAndHoldAtTime(now); else p.cancelScheduledValues(now);
+  if (duckUntil > now) { p.setTargetAtTime(full * DUCK, now, Math.min(tc, 0.06)); p.setTargetAtTime(full, duckUntil, 0.35); }
+  else p.setTargetAtTime(full, now, tc);
+}
 function stopAmb(live) {
   live.dead = true; live.timers.forEach((h) => clearTimeout(h.t));
   live.g.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
@@ -242,7 +261,7 @@ export const Sound = {
       master = G(vol); const comp = ctx.createDynamicsCompressor();
       comp.threshold.value = -14; comp.ratio.value = 6;
       link(master, comp, ctx.destination);
-      ambBus = G(ambOn ? 0.55 : 0); cueBus = G(1); ambBus.connect(master); cueBus.connect(master);
+      ambBus = G(ambOn ? AMB_LEVEL : 0); cueBus = G(1); ambBus.connect(master); cueBus.connect(master);
       // iPhone: let sound play even when the ring switch is on silent.
       try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) { /* not supported */ }
       document.addEventListener('visibilitychange', () => { if (!ctx) return; if (document.hidden) ctx.suspend(); else ctx.resume(); });
@@ -257,9 +276,15 @@ export const Sound = {
     current = null; currentId = id;
     if (id && AMB[id]) current = startAmb(id);
   },
-  cue(id) { if (!ctx || !CUE[id]) return; if (ctx.state === 'suspended') ctx.resume(); CUE[id](cueBus, ctx.currentTime + 0.03); },
+  cue(id) {
+    if (!ctx || !CUE[id]) return; if (ctx.state === 'suspended') ctx.resume();
+    const [level, len] = CUE_MIX[id] || [1, 2], t = ctx.currentTime + 0.03;
+    const g = G(level); g.connect(cueBus); setTimeout(() => g.disconnect(), (len + 2) * 1000);
+    CUE[id](g, t);
+    duckUntil = Math.max(duckUntil, t + len); setAmb();
+  },
   volume(v) { vol = v; if (master) master.gain.setTargetAtTime(v, ctx.currentTime, 0.05); },
-  ambienceOn(on) { ambOn = on; if (ambBus) ambBus.gain.setTargetAtTime(on ? 0.55 : 0, ctx.currentTime, 0.3); },
+  ambienceOn(on) { ambOn = on; setAmb(); },
   stop() { if (current) stopAmb(current); current = null; currentId = null; },
   // For checking levels in development.
   _probe() { if (!ctx) return null; const an = ctx.createAnalyser(); an.fftSize = 2048; master.connect(an); return an; },
